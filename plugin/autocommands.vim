@@ -18,11 +18,15 @@ fun! SetGuiBg()
     call system("theme-switch.sh " . v:option_new)
   endif
 endfun
+fun! SetHiHs()
+  hi ConId gui=bold
+endfun
 augroup VIMRC_SetGuiBg
   au!
   au VimEnter    *          :call SetGuiBg()
   au ColorScheme *          :call SetGuiBg()
   au OptionSet   background :call SetGuiBg()
+  au ColorScheme *          :call SetHiHs()
 augroup END
 
 " Set PS1 for shell invoked from Vim
