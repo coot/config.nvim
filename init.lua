@@ -245,6 +245,16 @@ require('lazy').setup({
   'chrisbra/Recover.vim',
   'chrisbra/SudoEdit.vim',
   'tpope/vim-unimpaired',
+  {
+    'stevearc/aerial.nvim',
+    config = function()
+      require('aerial').setup({
+        backends = { 'lsp' },
+      })
+    end,
+  },
+  'SirVer/ultisnips',
+
   -- { 'coot/vim-ssh-tree-view' },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart

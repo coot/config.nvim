@@ -56,6 +56,7 @@ vim.api.nvim_set_keymap('t', '<C-R>', '<C-\\><C-R>.nr2char(getchar())."pi"', {ex
 
 local g = vim.g
 g.m = '\\v^(\\<{7}|\\|{7}|\\>{7}|\\={7})(\\s|$)@='
+g.UltiSnipsExpandTrigger = '<c-s>'
 vim.g = g
 
 return {}
