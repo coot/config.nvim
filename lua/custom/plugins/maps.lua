@@ -39,7 +39,7 @@ local function term()
 end
 vim.api.nvim_create_user_command('Term', term, {})
 vim.api.nvim_set_keymap("n", "<leader>t", "<cmd>ToggleTerm<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("t", "<esc>", [[<c-\><c-n>]], {noremap = true})
+vim.api.nvim_set_keymap("t", [[<c-\><c-\>]], [[<c-\><c-n>]], {noremap = true})
 
 vim.api.nvim_set_keymap('n', 'gy', ':%y<CR>', {})
 vim.api.nvim_set_keymap('n', 'Y', '0Y', { noremap = true })

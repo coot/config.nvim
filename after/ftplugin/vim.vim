@@ -1,0 +1,2 @@
+setl nospell
+setl isk-=#
