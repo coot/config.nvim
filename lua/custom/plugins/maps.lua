@@ -54,9 +54,10 @@ vim.api.nvim_set_keymap('n', 'cw', 'dwi', {})
 
 vim.api.nvim_set_keymap('t', '<C-R>', '<C-\\><C-R>.nr2char(getchar())."pi"', {expr = true,})
 
+vim.api.nvim_set_keymap('n', '<leader>at', '<cmd>AerialToggle<CR>', {})
+
 local g = vim.g
 g.m = '\\v^(\\<{7}|\\|{7}|\\>{7}|\\={7})(\\s|$)@='
-g.UltiSnipsExpandTrigger = '<c-s>'
 vim.g = g
 
 return {}
