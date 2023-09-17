@@ -89,4 +89,7 @@ vim.o.formatoptions = vim.o.formatoptions .. '1'
 vim.o.softtabstop = -1
 vim.o.shiftwidth = 2
 
+vim.o.number = false
+vim.o.rnu = false
+
 return {}

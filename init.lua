@@ -104,6 +104,9 @@ require('lazy').setup({
     -- Theme inspired by Atom
     'navarasu/onedark.nvim',
     priority = 1000,
+    config = function()
+      require('onedark').setup{style = 'deep'}
+    end
   },
 
   {
@@ -126,11 +129,17 @@ require('lazy').setup({
     config = function()
       require('tokyonight').setup({
         style = 'night',
-        on_colors = function(colors)end,
-        on_highlights = function(highlights, colors)end,
+        on_colors = function(_)end,
+        on_highlights = function(_, _)end,
       })
       vim.cmd.colorscheme 'tokyonight-night'
     end,
+  },
+
+  {
+    -- Color scheme
+    'rebelot/kanagawa.nvim',
+    priority = 1000,
   },
 
   {
@@ -232,6 +241,12 @@ require('lazy').setup({
     end
   },
 
+  'jamessan/vim-gnupg',
+  'chrisbra/Recover.vim',
+  'chrisbra/SudoEdit.vim',
+  'tpope/vim-unimpaired',
+  -- { 'coot/vim-ssh-tree-view' },
+
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -241,14 +256,6 @@ require('lazy').setup({
   { import = 'custom.plugins' },
 }, {})
 
--- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
-
--- vim.o.showtabline = 0
-
--- not supported?
--- vim.o.diffopt = 'internal,filler,closeof,algorithm:minimal,internal,indent-heuristic,vertical,hiddenoff,followwrap'
 
 
 
@@ -349,12 +356,6 @@ require('nvim-treesitter.configs').setup {
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
-  -- NOTE: Remember that lua is a real programming language, and as such it is possible
-  -- to define small helper and utility functions so you don't have to repeat yourself
-  -- many times.
-  --
-  -- In this case, we create a function that lets us more easily define mappings specific
-  -- for LSP related items. It sets the mode, buffer and description for us each time.
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -381,14 +382,18 @@ local on_attach = function(_, bufnr)
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
   nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  nmap('<leader>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, '[W]orkspace [L]ist Folders')
+  nmap('<leader>wl',
+        function()
+          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end, '[W]orkspace [L]ist Folders'
+      )
 
   -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
+  vim.api.nvim_buf_create_user_command(
+    bufnr, 'Format',
+    function(_) vim.lsp.buf.format() end,
+    { desc = 'Format current buffer with LSP' }
+  )
 end
 
 -- Enable the following language servers
@@ -400,13 +405,7 @@ end
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-
+  html = { filetypes = { 'html', 'twig', 'hbs'} },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -422,11 +421,18 @@ require('neodev').setup()
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
+-- setup hls without using mason, it's managed by ghcup
+local lspconfig = require 'lspconfig'
+lspconfig.hls.setup{
+  on_attach = on_attach,
+}
+
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
 mason_lspconfig.setup {
   ensure_installed = vim.tbl_keys(servers),
+  automatic_installation = { exclude = {'hls'} },
 }
 
 mason_lspconfig.setup_handlers {
