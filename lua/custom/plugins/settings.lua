@@ -30,6 +30,7 @@ vim.o.ttimeoutlen = 10
 -- vim.o.cpo = 'aABceFs_/'
 vim.o.cm = 'blowfish2'
 
+vim.o.cmdheight = 2
 vim.o.helphight = 25
 
 -- Set highlight on search
@@ -44,7 +45,7 @@ vim.o.mouse = 'a'
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
+vim.o.clipboard = 'unnamed'
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -62,7 +63,7 @@ vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
 vim.o.updatetime = 250
-vim.o.timeoutlen = 300
+vim.o.timeoutlen = 500
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'

@@ -68,7 +68,10 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',
+    opts = {},
+  },
+
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -132,7 +135,6 @@ require('lazy').setup({
         on_colors = function(_)end,
         on_highlights = function(_, _)end,
       })
-      vim.cmd.colorscheme 'tokyonight-night'
     end,
   },
 
@@ -154,15 +156,15 @@ require('lazy').setup({
         section_separators = '',
       },
     },
+  },
 
-    {
+  {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     dependencies = {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
         "MunifTanjim/nui.nvim",
-      }
     },
     config = function()
     end,
@@ -194,8 +196,10 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
+    -- char = '┊',
     opts = {
-      char = '┊',
+      enabled = false,
+      show_current_context_start = true,
       show_trailing_blankline_indent = false,
     },
   },
@@ -267,8 +271,8 @@ require('lazy').setup({
   { import = 'custom.plugins' },
 }, {})
 
-
-
+-- vim.cmd.colorscheme 'tokyonight-night'
+vim.cmd.colorscheme 'lovely'
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -300,9 +304,9 @@ pcall(require('telescope').load_extension, 'fzf')
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
-require('nvim-treesitter.configs').setup {
+local treesitterConfig = {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'haskell' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -363,6 +367,14 @@ require('nvim-treesitter.configs').setup {
     },
   },
 }
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+parser_config.haskell = {
+  install_info = {
+    url = "/home/coot/src/haskell/tree-sitter-haskell",
+    files = {"src/parser.c", "src/scanner.c", "src/unicode.h"}
+  }
+}
+require('nvim-treesitter.configs').setup(treesitterConfig)
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
@@ -381,6 +393,8 @@ local on_attach = function(_, bufnr)
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
   nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+  nmap('<leader>ic', vim.lsp.buf.incoming_calls, 'Incoming calls')
+  nmap('<leader>oc', vim.lsp.buf.outgoing_calls, 'Outgoing calls')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
