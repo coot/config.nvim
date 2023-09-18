@@ -464,7 +464,10 @@ local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
-cmp.setup {
+
+local cmpConfig = {
+  enabled = true,
+
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -504,6 +507,7 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+cmp.setup(cmpConfig)
 
 local g = vim.g
 g.loaded_ruby_provider = 0
