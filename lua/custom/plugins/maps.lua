@@ -48,7 +48,6 @@ local function term()
 end
 vim.api.nvim_create_user_command('Term', term, {})
 vim.api.nvim_set_keymap("n", "<leader>t", "<cmd>ToggleTerm<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("t", [[<c-\>]], [[<c-\><c-n>]], {noremap = true})
 
 vim.api.nvim_set_keymap('n', 'gy', ':%y<CR>', {})
 vim.api.nvim_set_keymap('n', 'Y', '0Y', { noremap = true })
@@ -61,7 +60,9 @@ vim.api.nvim_set_keymap('n', '&', ':&&<CR>', {})
 
 vim.api.nvim_set_keymap('n', 'cw', 'dwi', {})
 
-vim.api.nvim_set_keymap('t', '<C-R>', '<C-\\><C-R>.nr2char(getchar())."pi"', {expr = true,})
+-- Terminal maps
+vim.api.nvim_set_keymap("t", [[<c-\>]], [[<c-\><c-n>]], {noremap = true})
+-- vim.api.nvim_set_keymap('t', '<A-x>', [[<C-\><C-N>]]..'.nr2char(getchar())."pi"', {expr = true, noremap = true})
 
 local g = vim.g
 g.m = '\\v^(\\<{7}|\\|{7}|\\>{7}|\\={7})(\\s|$)@='
