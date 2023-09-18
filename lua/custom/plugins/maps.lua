@@ -4,7 +4,16 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+local aerial = require('aerial')
+local function aerialToggle()
+  aerial.toggle()
+  if aerial.is_open then
+    vim.cmd('wincmd p')
+  end
+end
+
 vim.keymap.set('n', '<F2>', ":Neotree<CR>")
+vim.keymap.set('n', '<F3>', aerialToggle)
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
@@ -53,8 +62,6 @@ vim.api.nvim_set_keymap('n', '&', ':&&<CR>', {})
 vim.api.nvim_set_keymap('n', 'cw', 'dwi', {})
 
 vim.api.nvim_set_keymap('t', '<C-R>', '<C-\\><C-R>.nr2char(getchar())."pi"', {expr = true,})
-
-vim.api.nvim_set_keymap('n', '<leader>at', '<cmd>AerialToggle<CR>', {})
 
 local g = vim.g
 g.m = '\\v^(\\<{7}|\\|{7}|\\>{7}|\\={7})(\\s|$)@='
