@@ -266,7 +266,7 @@ call s:hi("SpecialKey", s:blue, "", "")
 call s:hi("IncSearch", s:yellow, s:background, "")
 call s:hi("Search", s:yellow, s:background, "")
 call s:hi("TabLine", s:foreground, s:window, "none")
-call s:hi("TabLineSel", s:yellow, s:window, "bold")
+call s:hi("TabLineSel", s:dark ? s:orange : s:purple, s:window, "bold")
 call s:hi("TabLineFill", s:window, s:window, "")
 call s:hi("User4", s:dark ? s:orange : s:black, s:window, "none")
 call s:hi("StatusLine", s:dark ? s:orange : s:black, s:window, "bold")
@@ -473,3 +473,8 @@ call s:hi("CocErrorHighlight", "", s:lightBackground, "")
 call s:hi("CocHintHighlight", "", s:lightBackground, "")
 hi link CocHoverRange Title
 hi link CocCursorRange Title
+
+if has('nvim')
+hi link TermCursor Cursor
+call s:hi("TermCursorNC", s:dark ? "#505050" : "#909090", s:dark ? "#505050" : "#909090", "")
+endif
