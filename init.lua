@@ -237,13 +237,13 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
-  {
-    'ldelossa/gh.nvim',
-    dependencies = { 'ldelossa/litee.nvim' },
-    config = function()
-      require('litee.gh').setup()
-    end
-  },
+  -- {
+  --   'ldelossa/gh.nvim',
+  --   dependencies = { 'ldelossa/litee.nvim' },
+  --   config = function()
+  --     require('litee.gh').setup()
+  --   end
+  -- },
 
   'jamessan/vim-gnupg',
   'chrisbra/Recover.vim',
