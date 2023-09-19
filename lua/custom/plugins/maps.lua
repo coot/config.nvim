@@ -63,7 +63,8 @@ vim.api.nvim_set_keymap('n', 'cw', 'dwi', {})
 vim.api.nvim_set_keymap("n", "<leader>t", "<cmd>ToggleTerm<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap('t', [[<c-\>]], [[<c-\><c-n>]], {noremap = true})
 vim.api.nvim_set_keymap('t', '<A-R>', [['<C-\><C-N>"'.nr2char(getchar()).'pi']], {expr = true, noremap = true})
-vim.api.nvim_set_keymap('t', '<C-W>', [['<C-\><C-N><C-W>'.nr2char(getchar())]],    {expr = true, noremap = true})
+vim.api.nvim_set_keymap('t', '<C-W>', [['<C-\><C-N><C-W>'.nr2char(getchar())]], {expr = true, noremap = true})
+vim.api.nvim_set_keymap('t', '<C-Y>', [[<C-\><C-N><C-Y>]], {noremap = true})
 
 local g = vim.g
 g.m = '\\v^(\\<{7}|\\|{7}|\\>{7}|\\={7})(\\s|$)@='
