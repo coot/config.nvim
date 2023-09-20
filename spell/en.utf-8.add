@@ -20,3 +20,5 @@ IOSim
 #IOSimPOR/
 ThrowTo
 timeouts
+stepInfoRaces
+stepInfoStep
