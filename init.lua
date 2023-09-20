@@ -272,8 +272,8 @@ require('lazy').setup({
 }, {})
 
 -- vim.cmd.colorscheme 'tokyonight-night'
--- vim.cmd.colorscheme 'lovely'
-vim.cmd.colorscheme 'onedark'
+vim.cmd.colorscheme 'lovely'
+-- vim.cmd.colorscheme 'onedark'
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -312,7 +312,7 @@ local treesitterConfig = {
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
 
-  highlight = { enable = true },
+  highlight = { enable = false },
   indent = { enable = true },
   incremental_selection = {
     enable = true,
@@ -330,7 +330,7 @@ local treesitterConfig = {
       keymaps = {
         -- You can use the capture groups defined in textobjects.scm
         ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.inner',
+        -- ['ia'] = '@parameter.inner',
         ['af'] = '@function.outer',
         ['if'] = '@function.inner',
         ['ac'] = '@class.outer',

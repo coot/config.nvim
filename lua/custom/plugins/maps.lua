@@ -9,7 +9,7 @@ vim.keymap.set('n', '<F2>', ":Neotree<CR>")
 vim.keymap.set('n', '<F3>', function()
                               aerial.toggle({focus = true, direction = "right"})
                               -- close imports
-                              aerial.tree_close({index = 0, fold = false})
+                              aerial.tree_close({index = 1, fold = false})
                             end)
 
 -- See `:help telescope.builtin`
