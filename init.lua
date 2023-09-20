@@ -150,11 +150,14 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
-        theme = 'onedark',
-        component_separators = '|',
-        section_separators = '',
+        icons_enabled = true,
+        theme = 'nightfly',
+        path = 1,
       },
+      tabline = {
+        lualine_a = {{'tabs', mode = 2}},
+      },
+      extensions = {'aerial', 'man', 'quickfix'},
     },
   },
 
