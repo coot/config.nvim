@@ -5,15 +5,12 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 local aerial = require('aerial')
-local function aerialToggle()
-  aerial.toggle()
-  if aerial.is_open then
-    vim.cmd('wincmd p')
-  end
-end
-
 vim.keymap.set('n', '<F2>', ":Neotree<CR>")
-vim.keymap.set('n', '<F3>', aerialToggle)
+vim.keymap.set('n', '<F3>', function()
+                              aerial.toggle({focus = true, direction = "right"})
+                              -- close imports
+                              aerial.tree_close({index = 0, fold = false})
+                            end)
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
