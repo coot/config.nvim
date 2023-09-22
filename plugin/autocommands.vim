@@ -321,3 +321,8 @@ augroup HighlightUserGroups
   au!
   au ColorScheme * :call SetMyDefaultHighlighting(['User1', 'User2', 'User3', 'User4'], "StatusLine")
 augroup END
+
+augroup NVimTerm
+  au!
+  au BufEnter term://* :startinsert
+augroup END
