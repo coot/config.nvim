@@ -93,4 +93,6 @@ vim.o.shiftwidth = 2
 vim.o.number = false
 vim.o.rnu = false
 
+vim.o.grepprg = "rg --vimgrep --with-filename"
+
 return {}
