@@ -290,9 +290,11 @@ require('lazy').setup({
   { import = 'custom.plugins' },
 }, {})
 
--- vim.cmd.colorscheme 'tokyonight-night'
+if extended then
 vim.cmd.colorscheme 'lovely'
--- vim.cmd.colorscheme 'onedark'
+else
+vim.cmd.colorscheme 'onedark'
+end
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
