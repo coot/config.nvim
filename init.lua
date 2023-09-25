@@ -376,13 +376,13 @@ local treesitterConfig = {
     },
   },
 }
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.haskell = {
-  install_info = {
-    url = "/home/coot/src/haskell/tree-sitter-haskell",
-    files = {"src/parser.c", "src/scanner.c", "src/unicode.h"}
-  }
-}
+-- local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+-- parser_config.haskell = {
+--   install_info = {
+--     url = "/home/coot/src/haskell/tree-sitter-haskell",
+--     files = {"src/parser.c", "src/scanner.c", "src/unicode.h"}
+--   }
+-- }
 require('nvim-treesitter.configs').setup(treesitterConfig)
 
 -- [[ Configure LSP ]]
