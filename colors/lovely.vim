@@ -442,6 +442,10 @@ call s:hi("ansiCyan", s:aqua, s:background, "")
 " hp files
 call s:hi("hpName", s:green, s:background, "")
 
+" fugitive
+call s:hi("gitHash", s:blue, "", "")
+call s:hi("gitHashAbbrev", s:blue, "", "")
+
 " markdows
 call s:hi("markdownCode", s:aqua, s:background, "")
 call s:hi("markdownCodeBlock", s:aqua, s:background, "")
