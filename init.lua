@@ -1,3 +1,14 @@
+local os = require('os')
+
+local hostname = os.getenv('HOSTNAME')
+local user = os.getenv('USER')
+local extended = (({waldorf = {coot = true, root = false},})[hostname] or {})[user] or false
+
+local function bool(a, b, c)
+  if a then return b else return c end
+end
+
+
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -315,7 +326,8 @@ pcall(require('telescope').load_extension, 'fzf')
 -- See `:help nvim-treesitter`
 local treesitterConfig = {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'haskell' },
+  ensure_installed = bool(extended, { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'haskell' },
+                                    {'lua', 'vim'}),
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
