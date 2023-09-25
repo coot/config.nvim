@@ -2,7 +2,7 @@ local os = require('os')
 
 local hostname = os.getenv('HOSTNAME')
 local user = os.getenv('USER')
-local extended = (({waldorf = {coot = true, root = false},})[hostname] or {})[user] or false
+local extended = (({waldorf = {coot = true}, fozzie = {coot = true}})[hostname] or {})[user] or false
 
 local function bool(a, b, c)
   if a then return b else return c end
