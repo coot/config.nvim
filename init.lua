@@ -1,6 +1,9 @@
 local os = require('os')
 
 local hostname = os.getenv('HOSTNAME')
+if not hostname then
+hostname = require('io').popen("hostname"):read('*line')
+end
 local user = os.getenv('USER')
 local extended = (({waldorf = {coot = true}, fozzie = {coot = true}})[hostname] or {})[user] or false
 
@@ -291,11 +294,12 @@ require('lazy').setup({
   { import = 'custom.plugins' },
 }, {})
 
-if extended then
-vim.cmd.colorscheme 'lovely'
-else
-vim.cmd.colorscheme 'onedark'
-end
+local colorschemes = {}
+colorschemes["waldorf"] = {coot = "lovely", root = "onedark"}
+colorschemes["fozzie"]  = {coot = "lovely", root = "onedark"}
+colorschemes["coot.me"] = {root = "onedark", }
+local colorscheme = (colorschemes[hostname] or {})[user] or "onedark"
+vim.api.nvim_cmd({cmd = "colorscheme", args = {colorscheme,}}, {})
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
