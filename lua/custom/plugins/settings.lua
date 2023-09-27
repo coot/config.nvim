@@ -2,7 +2,6 @@ vim.o.expandtab = true
 
 -- vim.o.fileencoding = 'ucs-bom,utf-8,iso-8859-2,default,latin1'
 vim.o.encoding = 'utf-8'
-vim.o.termencoding = 'utf-8'
 
 vim.o.autowrite = true
 vim.o.autoread = true
@@ -21,17 +20,13 @@ vim.o.showmode = false
 vim.o.showbreak = '>\\'
 vim.o.cole = 2
 vim.o.virtualedit = 'block'
-vim.o.deisplay = 'lastline'
+vim.o.display = 'lastline'
 
-vim.o.notimeout = true
 vim.o.ttimeout = true
 vim.o.ttimeoutlen = 10
 
--- vim.o.cpo = 'aABceFs_/'
-vim.o.cm = 'blowfish2'
-
 vim.o.cmdheight = 2
-vim.o.helphight = 25
+vim.o.helpheight = 25
 
 -- Set highlight on search
 vim.o.hlsearch = false
@@ -49,7 +44,7 @@ vim.o.clipboard = 'unnamedplus'
 
 -- Enable break indent
 vim.o.breakindent = true
-vim.o.breakindentop = 'shift:2'
+vim.o.breakindentopt = 'shift:2'
 
 -- Save undo history
 vim.o.undofile = true
@@ -77,8 +72,8 @@ vim.o.cdpath = ',~/src,~/clients/iog'
 vim.o.suffixes = vim.o.suffixes .. ',.pyc,.hi'
 vim.o.splitbelow = true
 vim.o.splitright = true
-vim.o.srolloff = 1
-vim.o.sidesrolloff = 5
+vim.o.scrolloff = 1
+vim.o.sidescrolloff = 5
 vim.o.startofline = false
 vim.o.shortmess = vim.o.shortmess .. 'mr'
 vim.o.spelllang = 'en_gb,pl'
