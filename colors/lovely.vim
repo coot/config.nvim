@@ -463,14 +463,14 @@ call s:hi("LspInformationText", "LightGreen", s:lightBackground4, "")
 call s:hi("LspHintText", "LightGreen", s:lightBackground4, "")
 call s:hi("LspCodeActionText", "LightGreen", s:lightBackground4, "")
 
-hi DiagnosticWarn guifg=#c16815
-hi DiagnosticUnderlineWarn gui=undercurl guisp=#ad8530
-hi DiagnosticError guifg=#ad4730 
-hi DiagnosticUnderlineError gui=undercurl guisp=#ad4730 
-hi DiagnosticInfo guifg=#305ead
-hi DiagnosticUnderlineInfo gui=undercurl guisp=#305ead
-hi DiagnosticHint guifg=DarkGray
-hi DiagnosticUnderlineHint gui=undercurl guisp=#c16815
+call s:hi("DiagnosticError", s:red, "", "")
+exe "hi DiagnosticUnderlineError gui=undercurl guisp=" . s:red
+call s:hi("DiagnosticWarn", s:blue, "", "")
+exe "hi DiagnosticUnderlineWarn gui=undercurl guisp=" . s:blue
+call s:hi("DiagnosticInfo", s:comment, "", "")
+exe "hi DiagnosticUnderlineInfo gui=undercurl guisp=" . s:comment
+call s:hi("DiagnosticHint", s:comment, "", "")
+exe "hi DiagnosticUnderlineHint gui=undercurl guisp=" . s:comment
 hi DiagnosticUnnecessary gui=undercurl guisp=#c16815
 
 call s:hi("CocWarningHighlight", "", s:lightBackground, "")
