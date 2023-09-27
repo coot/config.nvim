@@ -5,13 +5,18 @@ if not hostname then
 hostname = require('io').popen("hostname"):read('*line')
 end
 local user = os.getenv('USER')
-local extended = (({waldorf = {coot = true}, fozzie = {coot = true}})[hostname] or {})[user] or false
 
 local function bool(a, b, c)
   if a then return b else return c end
 end
 
-showhostname = not (({waldorf = true, fozzie = true})[hostname] or false)
+local opts
+do
+local all = {}
+all["waldorf"] = {coot = {hostname = false, lualine = "nightfly", extended = true},}
+all["fozzie"]  = {coot = {hostname = true,  lualine = "powerline", extended = true},}
+opts = (all[hostname] or {})[user] or {hostname = true, lualine = "powerline", extended = false}
+end
 
 
 vim.g.mapleader = ' '
@@ -167,11 +172,11 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'nightfly',
+        theme = opts.lualine,
         path = 1,
       },
       sections = {
-        lualine_a = bool(showhostname, {'mode', 'hostname'}, {'mode',}),
+        lualine_a = bool(opts.hostname, {'mode', 'hostname'}, {'mode',}),
         lualine_b = {'filename'},
         lualine_c = {'branch', 'diff', 'diagnostics'},
         lualine_x = {'encoding', 'fileformat', 'filetype'},
@@ -304,12 +309,7 @@ require('lazy').setup({
   { import = 'custom.plugins' },
 }, {})
 
-local colorschemes = {}
-colorschemes["waldorf"] = {coot = "lovely", root = "onedark"}
-colorschemes["fozzie"]  = {coot = "lovely", root = "onedark"}
-colorschemes["coot.me"] = {root = "tokyonight-night", }
-local colorscheme = (colorschemes[hostname] or {})[user] or "onedark"
-vim.api.nvim_cmd({cmd = "colorscheme", args = {colorscheme,}}, {})
+vim.cmd.colorscheme "lovely"
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -358,8 +358,8 @@ pcall(require('telescope').load_extension, 'fzf')
 -- See `:help nvim-treesitter`
 local treesitterConfig = {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = bool(extended, { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'haskell' },
-                                    {'lua', 'vim'}),
+  ensure_installed = bool(opts.extended, { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'haskell' },
+                                         {'lua', 'vim'}),
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -483,7 +483,7 @@ end
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers
-if extended then
+if opts.extended then
 servers = {
   html = { filetypes = { 'html', 'twig', 'hbs'} },
   lua_ls = {
