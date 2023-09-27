@@ -7,10 +7,9 @@ let g:colors_name = "lovely"
 
 let s:dark = &bg == "dark"
 let s:black = "#000000"
-let s:background = (s:dark ? "#171421" : "#ffffff")
+let s:background = (s:dark ? "#171421" : "#fcebc2")
 let s:darkBackground = (s:dark ? "#171421" : "#171421")
-" let s:background = (s:dark ? "#0d1117" : "#ffffff")
-" let s:background = (s:dark ? "#161d21" : "#ffffff")
+let s:darkBackground2 = (s:dark ? "#1f1a30" : "#fce4a9")
 let s:lightBackground = (s:dark ? "#292c2e" : "#fdf6e3")
 let s:lightBackground2 = (s:dark ? "#2b2b2b" : "#fdf6e3")
 let s:lightBackground3 = (s:dark ? "#1a1a1a" : "#fdf6e3")
@@ -20,7 +19,7 @@ let s:foreground2 = (s:dark ? "#d0d0d0" : "#505050")
 let s:pink = "#92346b"
 let s:comment = (s:dark ? "#8060c0" : "#909090")
 let s:white = "#ffffff"
-let s:red = "#c13333"
+let s:red = "#bf1c1c"
 let s:yellow = (s:dark ? "#ffea00" : "#ffbd00")
 let s:orange = s:dark ? "#ffb700" : "#ff6e00"
 let s:green = "#6dba09"
@@ -479,6 +478,10 @@ call s:hi("CocErrorHighlight", "", s:lightBackground, "")
 call s:hi("CocHintHighlight", "", s:lightBackground, "")
 hi link CocHoverRange Title
 hi link CocCursorRange Title
+
+hi link PmenuKind Title
+call s:hi("Pmenu", "", s:darkBackground2, "")
+call s:hi("DiagnosticFloatingError", s:red, "", "")
 
 if has('nvim')
 hi link TermCursor Cursor
