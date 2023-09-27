@@ -90,4 +90,6 @@ vim.o.rnu = false
 
 vim.o.grepprg = "rg --vimgrep --with-filename"
 
+vim.o.title = true
+
 return {}

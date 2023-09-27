@@ -326,3 +326,8 @@ augroup END
 "   au!
 "   au BufEnter term://* :startinsert
 " augroup END
+
+augroup NVIM_TITLESTRING
+  au!
+  au BufEnter * let &titlestring=fnamemodify(getcwd(), ":t")
+augroup END

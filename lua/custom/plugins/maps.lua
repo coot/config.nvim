@@ -46,7 +46,7 @@ end
 vim.api.nvim_create_user_command('Term', term, {})
 
 vim.api.nvim_set_keymap('n', 'gy', ':%y<CR>', {})
-vim.api.nvim_set_keymap('n', 'Y', '0Y', { noremap = true })
+vim.api.nvim_del_keymap('n', 'Y')
 
 vim.api.nvim_set_keymap('n', 'gs', ':%s/', {})
 vim.api.nvim_set_keymap('x', 'gs', ':%s/', {})
@@ -62,6 +62,7 @@ vim.api.nvim_set_keymap('t', [[<c-\>]], [[<c-\><c-n>]], {noremap = true})
 vim.api.nvim_set_keymap('t', '<A-r>', [['<C-\><C-N>"'.nr2char(getchar()).'pi']], {expr = true, noremap = true})
 vim.api.nvim_set_keymap('t', '<C-W>', [['<C-\><C-N><C-W>'.nr2char(getchar())]], {expr = true, noremap = true})
 vim.api.nvim_set_keymap('t', '<C-Y>', [[<C-\><C-N><C-Y>]], {noremap = true})
+vim.api.nvim_set_keymap('t', '<C-b>', [[<C-\><C-N><C-b>]], {noremap = true})
 
 local g = vim.g
 g.m = '\\v^(\\<{7}|\\|{7}|\\>{7}|\\={7})(\\s|$)@='

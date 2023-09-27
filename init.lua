@@ -276,6 +276,7 @@ require('lazy').setup({
       })
     end,
   },
+  'coot/haskell-vim-scripts',
   -- 'SirVer/ultisnips',
 
   -- TODO: add neovim support
@@ -311,10 +312,25 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
   defaults = {
+    layout_strategy = 'vertical',
     mappings = {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
+      },
+    },
+    layout_config = {
+      vertical = {
+        height = 0.9,
+        preview_cutoff = 30,
+        prompt_position = "bottom",
+        width = 0.95,
+      },
+      horizontal = {
+        height = 0.8,
+        preview_cutoff = 30,
+        prompt_position = "bottom",
+        width = 0.95,
       },
     },
   },
