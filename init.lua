@@ -11,6 +11,8 @@ local function bool(a, b, c)
   if a then return b else return c end
 end
 
+showhostname = not (({waldorf = true, fozzie = true})[hostname] or false)
+
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -168,6 +170,14 @@ require('lazy').setup({
         theme = 'nightfly',
         path = 1,
       },
+      sections = {
+        lualine_a = bool(showhostname, {'mode', 'hostname'}, {'mode',}),
+        lualine_b = {'filename'},
+        lualine_c = {'branch', 'diff', 'diagnostics'},
+        lualine_x = {'encoding', 'fileformat', 'filetype'},
+        lualine_y = {'progress'},
+        lualine_z = {'location'}
+      },
       tabline = {
         lualine_a = {{'tabs', mode = 2}},
       },
@@ -297,7 +307,7 @@ require('lazy').setup({
 local colorschemes = {}
 colorschemes["waldorf"] = {coot = "lovely", root = "onedark"}
 colorschemes["fozzie"]  = {coot = "lovely", root = "onedark"}
-colorschemes["coot.me"] = {root = "onedark", }
+colorschemes["coot.me"] = {root = "tokyonight-night", }
 local colorscheme = (colorschemes[hostname] or {})[user] or "onedark"
 vim.api.nvim_cmd({cmd = "colorscheme", args = {colorscheme,}}, {})
 
