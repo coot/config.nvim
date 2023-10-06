@@ -229,10 +229,12 @@ require('lazy').setup({
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
     -- char = '┊',
+    main = 'ibl',
     opts = {
-      enabled = false,
-      show_current_context_start = true,
-      show_trailing_blankline_indent = false,
+      enabled = true,
+      indent = { char = '▏' },
+      scope = { char = '▏', show_start = false, show_end = false, },
+      viewport_buffer = { min = 200, max = 500 },
     },
   },
 
@@ -393,20 +395,20 @@ local treesitterConfig = {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
-        [']m'] = '@function.outer',
-        [']]'] = '@class.outer',
+        [']]'] = '@function.outer',
+        [']c'] = '@class.outer',
       },
       goto_next_end = {
-        [']M'] = '@function.outer',
-        [']['] = '@class.outer',
+        [']['] = '@function.outer',
+        [']C'] = '@class.outer',
       },
       goto_previous_start = {
-        ['[m'] = '@function.outer',
-        ['[['] = '@class.outer',
+        ['[['] = '@function.outer',
+        ['[m'] = '@class.outer',
       },
       goto_previous_end = {
-        ['[M'] = '@function.outer',
-        ['[]'] = '@class.outer',
+        ['[]'] = '@function.outer',
+        ['[C'] = '@class.outer',
       },
     },
     swap = {
