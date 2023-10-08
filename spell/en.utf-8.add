@@ -44,3 +44,13 @@ TypeApplications
 NumericUnderscores
 pipelining
 UndecidableInstances
+Semigroup
+TMVar
+TMerge
+TMerge
+#MergeVar
+STM
+TMergeVar
+wikipedia
+EWMA
+semigroup
