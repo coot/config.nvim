@@ -219,6 +219,7 @@ require('lazy').setup({
           end
         end,
         start_in_insert = true,
+        auto_scroll = false,
       }
     end
   },
@@ -433,7 +434,7 @@ require('nvim-treesitter.configs').setup(treesitterConfig)
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local lsp_on_attach = function(_, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
@@ -516,7 +517,8 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- setup hls without using mason, it's managed by ghcup
 local lspconfig = require 'lspconfig'
 lspconfig.hls.setup{
-  on_attach = on_attach,
+  on_attach = lsp_on_attach,
+  cmd = {'haskell-language-server-wrapper', '--lsp'}
 }
 
 -- Ensure the servers above are installed
@@ -529,9 +531,9 @@ mason_lspconfig.setup {
 
 mason_lspconfig.setup_handlers {
   function(server_name)
-    require('lspconfig')[server_name].setup {
+    lspconfig[server_name].setup {
       capabilities = capabilities,
-      on_attach = on_attach,
+      on_attach = lsp_on_attach,
       settings = servers[server_name],
       filetypes = (servers[server_name] or {}).filetypes,
     }
