@@ -260,7 +260,7 @@ call s:hi("Terminal", s:foreground, s:background, "")
 " happens and it is not reset after loading this file syncolor.vim is loaded
 " and it messes up the highlighting.
 let &bg = (s:dark ? "dark" : "light")
-call s:hi("NonText", (s:dark ? s:dark_aqua : s:aqua), s:background, "")
+call s:hi("NonText", (s:dark ? s:dark_aqua : s:aqua), "", "")
 call s:hi("SpecialKey", s:blue, "", "")
 call s:hi("IncSearch", s:yellow, s:background, "")
 call s:hi("Search", s:yellow, s:background, "")
