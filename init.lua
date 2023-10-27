@@ -434,12 +434,15 @@ require('nvim-treesitter.configs').setup(treesitterConfig)
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local lsp_on_attach = function(_, bufnr)
+local lsp_on_attach = function(client, bufnr)
   local nmap = function(keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
     end
 
+    if client.name == 'hls' then
+    vim.bo[bufnr].tagfunc = nil
+    end
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
