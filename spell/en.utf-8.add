@@ -56,3 +56,6 @@ EWMA
 semigroup
 unregister
 deregister
+Hackage
+SelfConn
+rethrown
