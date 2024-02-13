@@ -78,7 +78,7 @@ digr u+ 8846  " ⊎
 digr vd 8866  " ⊢ \vdash
 digr \|- 8866 " ⊢ \|-
 digr pe 8869  " ⊥ \perp
-digr em 8709  " ∅ \empty
+digr em 8709  " ∅ \empty - alt /0
 digr in 8712  " ∈ \in
 digr ni 8715  " ∋ \ni
 digr l/ 411   " ƛ
