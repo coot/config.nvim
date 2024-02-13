@@ -50,8 +50,8 @@ syn keyword P2P_IG      TrDemotedToWarmRemote TrDemotedToColdRemote
 syn keyword P2P_IG        DemotedToWarmRemote   DemotedToColdRemote
 syn keyword P2P_IG      TrWaitIdleRemote TrMuxCleanExit TrRemoteState
 syn keyword P2P_IG        WaitIdleRemote   MuxCleanExit   RemoteState
-syn keyword P2P_IG      TrPromoteColdDone TrPromoteWarmPeers TrPromoteWarmDone
-syn keyword P2P_IG        PromoteColdDone   PromoteWarmPeers   PromoteWarmDone
+syn keyword P2P_IG      TrPromoteColdDone TrPromoteWarmPeers TrPromoteWarmDone TrPromoteColdBigLedgerPeerDone TrPromoteWarmBigLedgerPeerDone
+syn keyword P2P_IG        PromoteColdDone   PromoteWarmPeers   PromoteWarmDone   PromoteColdBigLedgerPeerDone   PromoteWarmBigLedgerPeerDone
 syn keyword P2P_IG      KeepTr
 syn keyword P2P_IGState RemoteHotSt RemoteWarmSt RemoteIdleSt RemoteColdSt
 syn keyword P2P_Counters TrInboundGovernorCounters InboundGovernorCounters hotPeers warmPeers coldPeers idlePeers idle warm hot 
@@ -74,7 +74,7 @@ syn keyword P2P_Warning ExceededTimeLimit
 
 syn keyword P2P_Warning AsyncCancelled ThreadKilled DisabledLedgerPeers UseLedgerAfter
 
-syn keyword P2P_Governor PeerStatusChanged HotToCold WarmToHot WarmToCold ColdToHot ColdToWarm HotToWarm
+syn keyword P2P_Governor PeerStatusChanged HotToCold WarmToHot WarmToCold ColdToHot ColdToWarm HotToWarm WarmToCooling HotToCooling CoolingToCold
 syn keyword ChainSync ChainSyncClientEvent TraceTermination
 
 syn match IPAddress /\(\d\{1,3}\.\)\{3}\d\{1,3}\(:\d\+\)\?/
@@ -96,7 +96,7 @@ syn keyword P2P_OG_Notice TracePromoteColdBigLedgerPeers TracePromoteWarmBigLedg
 syn keyword P2P_OG_Notice TraceLocalRootDomains TraceLocalRootDNSMap TraceLocalRootPeers TraceLocalRootResult TraceLocalRootGroups 
 syn keyword P2P_OG_Notice TraceLocalRootPersChanged TraceTragetsChanged TracePublicRootsRequest TracePublicRootsResults TracePublicRootsFailure
 syn keyword P2P_OG_Notice TraceGossipRequests TraceGossipResults TraceForgetColdPeers
-syn keyword P2P_OG_Notice TracePromoteColdDone TracePromoteColdFailed TracePromoteWarmDone TracePromoteWarmFailed TracePromoteWarmAborted TraceDemoteWarmDome TraceDemoteHotDone TraceDemoteHotFailed
+syn keyword P2P_OG_Notice TracePromoteColdDone TracePromoteColdFailed TracePromoteWarmDone TracePromoteWarmFailed TracePromoteWarmAborted TraceDemoteWarmDome TraceDemoteHotDone TraceDemoteHotFailed TracePromoteColdBigLedgerPeerDone TracePromoteWarmBigLedgerPeerDone
 syn keyword P2P_OG_Notice TracePromoteColdLocalPeers TraceDemoteLocalHotPeers TraceDemoteLocalAsynchronous TraceDemoteAsynchronous TraceGovernorWakeup TraceChurnWait TraceChurnMode
 
 " the same but without 'Trace'
@@ -116,7 +116,7 @@ syn keyword CardanoError      LocalRootError        LocalRootFailure
 
 syn keyword P2P_OG_Info   PeerSelectionState PeerSelectionTargets KnownPeers KnownPeerInfo availableToConnect nextConnectTimes EstablishedPeers nextActivateTimes activePeers publicRootBackoffs
 
-syn keyword P2P_OG_Info   PeerHot PeerWarm PeerCold
+syn keyword P2P_OG_Info   PeerHot PeerWarm PeerCooling PeerCold
 syn keyword P2P_OG_Notice PublicRootsRequest
 syn keyword P2P_OG_Info   RequestForPeers ReusingLedgerState PickedPeer 
 syn match   P2P_OG_Info   /\<PeerAddr\s\+\d\+/
@@ -160,6 +160,9 @@ syntax keyword ChainDB TraceAddBlockEvent AddedToCurrentChain TraceCopyToImmutab
 syntax keyword ChainDB TraceImmDbEvent TraceCacheEvent TracePastChunkEvict
 syntax keyword ChainDB AddBlockValidation UpdateLedgerDb
 syntax keyword ChainDB TraceFollowerEvent NewFollower
+syntax keyword P2P_Protocol KeepAlive TxSubmission ChainSync BlockFetch LocalTxSubmission LocalStateQuery Handshake
+syntax keyword P2P_Protocol ClientAgency ServerAgency
+syntax keyword P2P_Protocol TokIdle TokNext TokIntersect TokDone TokClient TokServer TokBusy TokStreaming TokPropose TokConfirm
 
 syntax keyword NodeConfig NetworkConfig NodeConfiguration StartupInfo StartupTime NetworkMagic unNetworkMagic nodeStartTime protocol version
 " WarningDevelopmentNetworkProtocols
@@ -218,3 +221,4 @@ hi link NodeBasicInfo Constant
 hi link NodeConfig Constant
 hi link NetworkLib ModeMsg
 hi link ChainSync CursorLineSign
+hi link P2P_Protocol WarningMsg
