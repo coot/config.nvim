@@ -218,7 +218,7 @@ require('lazy').setup({
             return 20
           end
         end,
-        open_mapping = [[<leader>t]],
+        -- open_mapping = [[<leader>t]],
         start_in_insert = true,
         auto_scroll = false,
       }
