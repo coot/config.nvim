@@ -300,6 +300,18 @@ require('lazy').setup({
   },
   'coot/haskell-vim-scripts',
   -- 'SirVer/ultisnips',
+  'junegunn/vim-easy-align',
+  {
+      'pwntester/octo.nvim',
+      dependencies = {
+          'nvim-lua/plenary.nvim',
+          'nvim-telescope/telescope.nvim',
+          'nvim-tree/nvim-web-devicons',
+      },
+      config = function()
+          require "octo".setup()
+      end
+  },
 
   -- TODO: add neovim support
   -- { 'coot/vim-ssh-tree-view' },
