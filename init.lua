@@ -299,7 +299,6 @@ require('lazy').setup({
     end,
   },
   'coot/haskell-vim-scripts',
-  -- 'SirVer/ultisnips',
   'junegunn/vim-easy-align',
   {
       'pwntester/octo.nvim',
