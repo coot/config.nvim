@@ -45,8 +45,8 @@ ls.add_snippets("cabalproject", {
   s("srp", {t{"source-repository-package",
                   "  type: git",
                   "  location: "}, i(1),
-            t{"", "  tag:      "}, i(2),
-            t{"", "  subdir:   "}, i(3),
+            t{"", "  tag: "}, i(2),
+            t{"", "  subdir: "}, i(3),
            }),
 })
 
