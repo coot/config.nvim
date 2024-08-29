@@ -46,7 +46,7 @@ end
 vim.api.nvim_create_user_command('Term', term, {})
 
 vim.api.nvim_set_keymap('n', 'gy', ':%y<CR>', {})
-vim.api.nvim_del_keymap('n', 'Y')
+-- vim.api.nvim_del_keymap('n', 'Y')
 
 vim.api.nvim_set_keymap('n', 'gs', ':%s/', {})
 vim.api.nvim_set_keymap('x', 'gs', ':%s/', {})
