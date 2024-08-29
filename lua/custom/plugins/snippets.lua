@@ -1,7 +1,7 @@
 local ls = require('luasnip')
 local s = ls.snippet
-local sn = ls.snippet_node
 --[[
+local sn = ls.snippet_node
 local isn = ls.indent_snippet_node
 ]]
 local t = ls.text_node
@@ -39,6 +39,15 @@ ls.add_snippets("haskell", {
   s("trace", {t"Debug.trace ", i(2, "\"ups\""), t" ", i(3, "undefined")}),
 
   s("ff", {t"foreign import ccall ", i(1, "unsafe"), t" \"", i(2, "c_name"), t"\" ", i(3, "hs_name"), t" :: ", i(4, "IO ()")}),
+})
+
+ls.add_snippets("cabalproject", {
+  s("srp", {t{"source-repository-package",
+                  "  type: git",
+                  "  location: "}, i(1),
+            t{"", "  tag:      "}, i(2),
+            t{"", "  subdir:   "}, i(3),
+           }),
 })
 
 return {}
