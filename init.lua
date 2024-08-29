@@ -538,6 +538,9 @@ lspconfig.hls.setup{
     plugin = { stan = { globalOn = false } }
   },
 }
+lspconfig.rust_analyzer.setup{
+  ['rust-analyzer'] = {},
+}
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
