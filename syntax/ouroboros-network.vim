@@ -21,6 +21,7 @@ syn keyword P2P_CM Inbound Outbound
 syn keyword P2P_CM TrConnectionExists
 syn keyword P2P_Error TrConnectError TrServerError InUnsupportedState
 syn keyword P2P_Error TrFobiddenConnection TrConnectionFailure
+syn keyword P2P_Error OutboundGovernorCriticalFailure
 syn keyword P2P_Error TrAcceptError
 syn keyword P2P_Error   ConnectError   ServerError InUnsupportedState
 syn keyword P2P_Error   ConnectionExists   FobiddenConnection   ConnectionFailure
@@ -52,6 +53,8 @@ syn keyword P2P_IG      TrWaitIdleRemote TrMuxCleanExit TrRemoteState
 syn keyword P2P_IG        WaitIdleRemote   MuxCleanExit   RemoteState
 syn keyword P2P_IG      TrPromoteColdDone TrPromoteWarmPeers TrPromoteWarmDone TrPromoteColdBigLedgerPeerDone TrPromoteWarmBigLedgerPeerDone
 syn keyword P2P_IG        PromoteColdDone   PromoteWarmPeers   PromoteWarmDone   PromoteColdBigLedgerPeerDone   PromoteWarmBigLedgerPeerDone
+syn keyword P2P_IG      TrMaturedConnections TrInactive
+syn keyword P2P_IG        MaturedConnections   Inactive
 syn keyword P2P_IG      KeepTr
 syn keyword P2P_IGState RemoteHotSt RemoteWarmSt RemoteIdleSt RemoteColdSt
 syn keyword P2P_Counters TrInboundGovernorCounters InboundGovernorCounters hotPeers warmPeers coldPeers idlePeers idle warm hot 
@@ -106,7 +109,7 @@ syn keyword P2P_OG_Notice PromoteColdBigLedgerPeers PromoteWarmBigLedgerPeers De
 syn keyword P2P_OG_Notice GossipRequests GossipResults ForgetColdPeers
 syn keyword P2P_OG_Notice LocalRootPersChanged TragetsChanged PublicRootsRequest PublicRootsResults PublicRootsFailure
 syn keyword P2P_OG_Notice PromoteColdDone PromoteColdFailed PromoteWarmDone PromoteWarmFailed PromoteWarmAborted DemoteWarmDome DemoteHotDone DemoteHotFailed
-syn keyword P2P_OG_Notice PromoteColdLocalPeers DemoteLocalHotPeers DemoteAsynchronous GovernorWakeup ChurnWait ChurnMode
+syn keyword P2P_OG_Notice PromoteColdLocalPeers DemoteLocalHotPeers DemoteAsynchronous GovernorWakeup ChurnWait ChurnMode ChurnModeNormal ChurnAction ChurnTimeout
 
 syn keyword LocalRoots TraceLocalRootPeersChanged TracePromoteWarmLocalPeers TracePromoteColdLocalPers TraceLocalRootResult 
 syn keyword LocalRoots      LocalRootPeersChanged      PromoteWarmLocalPeers      PromoteColdLocalPers      LocalRootResult
