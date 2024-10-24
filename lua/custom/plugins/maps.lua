@@ -58,9 +58,9 @@ vim.api.nvim_set_keymap('n', 'cw', 'dwi', {})
 
 -- Terminal maps
 -- `<leader>t` is set in `toggleterm` setup in `init.lua`
-vim.api.nvim_set_keymap("n", "<leader>t", "<cmd>ToggleTerm direction=horizontal<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<leader>v", "<cmd>ToggleTerm direction=vertical<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<leader>f", "<cmd>ToggleTerm direction=float<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>t", "<cmd>ToggleTerm direction=horizontal<CR><cmd>startinsert<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>v", "<cmd>ToggleTerm direction=vertical<CR><cmd>startinsert<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>f", "<cmd>ToggleTerm direction=float<CR><cmd>startinsert<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap('t', [[<c-\>]], [[<c-\><c-n>]], {noremap = true})
 vim.api.nvim_set_keymap('t', '<A-r>', [['<C-\><C-N>"'.nr2char(getchar()).'pi']], {expr = true, noremap = true})
 vim.api.nvim_set_keymap('t', '<C-W>', [['<C-\><C-N><C-W>'.nr2char(getchar())]], {expr = true, noremap = true})

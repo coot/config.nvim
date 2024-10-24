@@ -210,7 +210,7 @@ require('lazy').setup({
         size = function(term)
           if term.direction == 'horizontal' then
             return math.min(40, vim.o.lines * 0.4)
-          elseif term.direction == 'floag' then
+          elseif term.direction == 'float' then
             return math.min(40, vim.o.lines * 0.4)
           elseif term.direction == 'vertical' then
             return vim.o.columns * 0.4
@@ -219,8 +219,11 @@ require('lazy').setup({
           end
         end,
         -- open_mapping = [[<leader>t]],
-        start_in_insert = true,
+        start_in_insert = false,
+        -- starting in insert mode is done by the map in
+        -- lua/custom/plugins/maps.lua
         auto_scroll = false,
+        -- auto scroll messes terminal right now
       }
     end
   },
