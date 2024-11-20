@@ -78,6 +78,8 @@ syn keyword P2P_Warning ExceededTimeLimit
 syn keyword P2P_Warning AsyncCancelled ThreadKilled DisabledLedgerPeers UseLedgerAfter
 
 syn keyword P2P_Governor PeerStatusChanged HotToCold WarmToHot WarmToCold ColdToHot ColdToWarm HotToWarm WarmToCooling HotToCooling CoolingToCold
+syn keyword P2P_Governor PeerMonitoringResult
+syn keyword P2P_Error PeerMonitoringError AcquireConnectionError
 syn keyword ChainSync ChainSyncClientEvent TraceTermination
 
 syn match IPAddress /\(\d\{1,3}\.\)\{3}\d\{1,3}\(:\d\+\)\?/
@@ -189,10 +191,10 @@ hi link P2P_OG_Info   SpecialKey
 hi link P2P_OG_Env    CursorLineSign
 hi link P2P_OG_Error  ErrorMsg
 
-hi link CardanoError  ErrorMsg
+hi link CardanoError  Error
 hi link CardanoWarning WarningMsg
 
-hi link P2P_Error   ErrorMsg
+hi link P2P_Error   Error
 hi link P2P_Warning Title
 hi link P2P_Comment Comment
 
