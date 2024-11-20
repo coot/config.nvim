@@ -538,8 +538,10 @@ lspconfig.hls.setup{
   on_attach = lsp_on_attach,
   cmd = {'haskell-language-server-wrapper', '--lsp', '--log-file', '/tmp/hls.log'},
   init_options = {
+    sessionLoading = "mutlipleComponents",
     plugin = { stan = { globalOn = false } }
   },
+  filetypes = { 'haskell', 'lhaskell', 'cabal' },
 }
 lspconfig.rust_analyzer.setup{
   ['rust-analyzer'] = {},
