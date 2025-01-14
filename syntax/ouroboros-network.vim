@@ -12,18 +12,18 @@ syn match NodeBasicInfo /\<cardano.node.basicInfo.\%(version\|protocol\|nodeStar
 
 " syn match P2P_Node0 /\<\(MsgDone\|TrDemotedToCold\(Local\|Remote\)\|TrPromotedToWarmRemote\|TrDemotedToRemoteColdEdge\|TrPromotedToRemoteEstablished\)\>/
 syn keyword P2P_CM TrConnect Connect TrIncludeConnection IncludeConnection TrReusedConnection ReusedConnection
-syn keyword P2P_CM TrUnregisterConnection UnregisterConnection TrConnectionCleanup ConnectionCleanup TrConnectionTimeWait ConnectionTimeWait
+syn keyword P2P_CM TrReleaseConnection ReleaseConnection TrConnectionCleanup ConnectionCleanup TrConnectionTimeWait ConnectionTimeWait
 syn keyword P2P_CM TrConnectionTimeWaitDone ConnectionTimeWaitDone TrTerminatingConnection TerminatingConnection
 syn keyword P2P_CM TrTerminatedConnection TerminatedConnection TrConnectionNotFound ConnectionNotFound ToConnectTo ConnectTo
 syn keyword P2P_CM TrUnexpectedlyFalseAssertion UnexpectedlyFalseAssertion TrConnectionHandler ConnectionHandler
 syn keyword P2P_CM TrPruneConnections PruneConnections
 syn keyword P2P_CM Inbound Outbound
 syn keyword P2P_CM TrConnectionExists
-syn keyword P2P_Error TrConnectError TrServerError InUnsupportedState
+syn keyword P2P_Error TrConnectError TrServerError InUnsupportedState TrConnectionHandlerError
 syn keyword P2P_Error TrFobiddenConnection TrConnectionFailure
 syn keyword P2P_Error OutboundGovernorCriticalFailure
 syn keyword P2P_Error TrAcceptError
-syn keyword P2P_Error   ConnectError   ServerError InUnsupportedState
+syn keyword P2P_Error   ConnectError   ServerError InUnsupportedState ConnectionHandlerError
 syn keyword P2P_Error   ConnectionExists   FobiddenConnection   ConnectionFailure
 syn keyword P2P_Error   AcceptError
 
@@ -38,7 +38,7 @@ syn match P2P_Comment /^--.*/
 syn keyword P2P_CMState Known Unknow
 syn keyword P2P_CMState ReservedOutboundState UnknownConnectionState UnnegotiatedState InboundIdleState OutboundState OutboundUniState OutboundDupState OutboundIdleState TerminatingState TerminatedState
 syn keyword P2P_CMState ReservedOutboundSt UnknownConnectionSt UnnegotiatedSt InboundIdleState InboundState DuplexState
-syn keyword P2P_CMState OutboundUniSt OutboundDupSt InboundIdleSt InboundSt DuplexSt
+syn keyword P2P_CMState OutboundUniSt OutboundDupSt OutboundIdleSt InboundIdleSt InboundSt DuplexSt
 syn keyword P2P_CMState RemoteIdleSt TerminatingSt TerminatedSt
 syn keyword P2P_CMState Ticking Expired
 
@@ -113,13 +113,16 @@ syn keyword P2P_OG_Notice LocalRootPersChanged TragetsChanged PublicRootsRequest
 syn keyword P2P_OG_Notice PromoteColdDone PromoteColdFailed PromoteWarmDone PromoteWarmFailed PromoteWarmAborted DemoteWarmDome DemoteHotDone DemoteHotFailed
 syn keyword P2P_OG_Notice PromoteColdLocalPeers DemoteLocalHotPeers DemoteAsynchronous GovernorWakeup ChurnWait ChurnMode ChurnModeNormal ChurnAction ChurnTimeout
 
+syn keyword SendRecv  Send Recv
+syn keyword Handshake MsgProposeVersions MsgReplyVersions MsgQueryReply MsgAcceptVersion MsgRefuse
+
 syn keyword LocalRoots TraceLocalRootPeersChanged TracePromoteWarmLocalPeers TracePromoteColdLocalPers TraceLocalRootResult 
 syn keyword LocalRoots      LocalRootPeersChanged      PromoteWarmLocalPeers      PromoteColdLocalPers      LocalRootResult
 syn keyword LocalRoots   LocalRootGroups
 syn keyword CardanoError TraceLocalRootFailure TraceLocalRootError
 syn keyword CardanoError      LocalRootError        LocalRootFailure
 
-syn keyword P2P_OG_Info   PeerSelectionState PeerSelectionTargets KnownPeers KnownPeerInfo availableToConnect nextConnectTimes EstablishedPeers nextActivateTimes activePeers publicRootBackoffs
+syn keyword P2P_OG_Info   PeerSelectionState PeerSelectionTargets KnownPeers KnownPeerInfo EstablishedPeers activePeers availableToConnect nextConnectTimes EstablishedPeers nextActivateTimes activePeers publicRootBackoffs
 
 syn keyword P2P_OG_Info   PeerHot PeerWarm PeerCooling PeerCold
 syn keyword P2P_OG_Notice PublicRootsRequest
@@ -227,3 +230,5 @@ hi link NodeConfig Constant
 hi link NetworkLib ModeMsg
 hi link ChainSync CursorLineSign
 hi link P2P_Protocol WarningMsg
+hi link SendRecv WarningMsg
+hi link Handshake WarningMsg
