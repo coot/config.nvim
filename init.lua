@@ -315,6 +315,11 @@ require('lazy').setup({
       end
   },
 
+  {
+    "NoahTheDuke/vim-just",
+    ft = { "just" },
+  },
+
   -- TODO: add neovim support
   -- { 'coot/vim-ssh-tree-view' },
 
