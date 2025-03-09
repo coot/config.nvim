@@ -280,3 +280,7 @@ Deschedule
 deschedule
 descheduling
 Inlined
+recv
+SOCK_NONBLOCK
+throwErrnoIfMinus1RetryMayBlock
+SDU
