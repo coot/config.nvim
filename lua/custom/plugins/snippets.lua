@@ -27,11 +27,8 @@ ls.add_snippets("haskell", {
   s("ddump", {t{"{-# OPTIONS_GHC",
                 "      -fforce-recomp",
                 "      -ddump-simpl",
-                "      -dsuppress-idinfo",
-                "      -dsuppress-coercions",
-                "      -dsuppress-type-applications",
+                "      -dsuppress-all",
                 "      -dsuppress-uniques",
-                "      -dsuppress-module-prefixes",
                 "#-}"}}),
   s("GHC", {t"#if __GLASGOW_HASKELL__ ", i(1,"<"), t" ", i(2, "908"), t{"", ""}, i(3), t{"", "#endif"}}),
 
