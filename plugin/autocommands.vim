@@ -18,16 +18,24 @@ fun! SetGuiBg()
     call system("theme-switch.sh " . v:option_new)
   endif
 endfun
+fun! FollowSystemColors()
+  if system(["dconf", "read", "/org/gnome/desktop/interface/color-scheme"]) =~ 'dark'
+    set bg=dark
+  else
+    set bg=light
+  endif
+endfun
 fun! SetHiHs()
   hi ConId gui=bold
 endfun
 augroup VIMRC_SetGuiBg
   au!
-  au VimEnter    *          :call SetGuiBg()
+  au VimEnter    *          :call FollowSystemColors()
   au ColorScheme *          :call SetGuiBg()
   au OptionSet   background :call SetGuiBg()
   au ColorScheme *          :call SetHiHs()
 augroup END
+
 
 " Set PS1 for shell invoked from Vim
 " This is very useful when the shell is invoked with :sh vim command.  Then
