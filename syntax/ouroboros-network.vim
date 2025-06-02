@@ -3,6 +3,7 @@
 " test.
 
 syntax clear
+setl iskeyword+=-
 
 " systemd service message
 syn match NodeStart /Started cardano-node.service - cardano-node service./
@@ -59,7 +60,7 @@ syn keyword P2P_IG      KeepTr
 syn keyword P2P_IGState RemoteHotSt RemoteWarmSt RemoteIdleSt RemoteColdSt
 syn keyword P2P_Counters TrInboundGovernorCounters InboundGovernorCounters hotPeers warmPeers coldPeers idlePeers idle warm hot 
 syn keyword P2P_Counters hotBigLedgerPeers warmBigLedgerPeers coldBigLedgerPeers
-syn keyword P2P_Counters TrConnectionManagerCounters ConnectionManagerCounters fullduplex duplex unidirectional outbound inbound
+syn keyword P2P_Counters TrConnectionManagerCounters ConnectionManagerCounters fullduplex duplex unidirectional outbound inbound terminating fullDuplex
 syn keyword P2P_Counters PeerSelectionCounters
 
 syn keyword P2P_Event   EventSay TrDebug
@@ -67,6 +68,7 @@ syn keyword P2P_Event   EventSay TrDebug
 syn keyword P2P_Error   UnsupportedState TrResponderStartFailure TrResponderErrored
 syn keyword P2P_Error   TrMuxErrored TrUnexpectedlyFalseAssertion
 syn keyword P2P_Error   NotReleasedConnections
+syn keyword MUX_Error   SDUReadTimeout SDUWriteTimeout SDUDecodeError IOException IngressQueueOverRun UnknownMiniProtocol
 
 syn keyword P2P_CH      TrHandshakeSuccess
 syn keyword P2P_CH        HandshakeSuccess
@@ -175,7 +177,25 @@ syntax keyword P2P_Protocol TokIdle TokNext TokIntersect TokDone TokClient TokSe
 syntax keyword NodeConfig NetworkConfig NodeConfiguration StartupInfo StartupTime NetworkMagic unNetworkMagic nodeStartTime protocol version
 " WarningDevelopmentNetworkProtocols
 
+syntax keyword ChainSync MsgRequestNext MsgAwaitReply MsgRollForward MsgRollBackward MsgFindIntersect MsgIntersectFound MsgIntersectNotFound MsgDone prtcl-2
+syntax match   ChainSync /\<MiniProtocolNum 2\>/
+syntax keyword BlockFetch MsgRequestRange MsgStartBatch MsgNoBlocks MsgBlock MsgBatchDone MsgClientDone prtcl-3
+syntax match   BlockFetch /\<MiniProtocolNum 3\>/
+syntax keyword TxSubmission MsgInit MsgRequestTxIds MsgReplyTxIds MsgRequestTxs MsgReplyTxs MsgDone prtcl-4
+syntax match   TxSubmission /\<MiniProtocolNum 4\>/
+syntax keyword KeepAlive MsgKeepAlive MsgKeepAliveResponse MsgDone  prtcl-8
+syntax match   KeepAlive /\<MiniProtocolNum 8\>/
+syntax keyword PeerSharing MsgShareRequest MsgSharePeers MsgDone prtcl-10
+syntax match   PeerSharing /\<MiniProtocolNum 10\>/
+syntax keyword PingPong MsgPing MsgPong MsgDone prtcl-9
+syntax match   PingPong /\<MiniProtocolNum 9\>/
+
+syntax keyword TxSubmissionTrace TraceTxSubmissionCollected TraceTxSubmissionProcessed TraceTxInboundCanRequestMoreTxs TraceTxInboundCannotRequestMoreTxs TraceTxInboundAddedToMempool TraceTxInboundRejectedFromMempool TraceTxInboundTerminated TraceTxInboundDecision
+syntax keyword TxSubmissionTrace TraceTxDecisions TraceSharedTxState
+
 syntax match NetworkLib /Network\.Socket\.\w\+/
+
+syntax keyword SimEvents TrJoiningNetwork TrKillingNode TrReconfiguringNode TrUpdatingDNS TrRunning TrErrored
 
 hi link P2P_Provenance Constant
 hi link P2P_CM      Statement
@@ -194,12 +214,21 @@ hi link P2P_OG_Info   SpecialKey
 hi link P2P_OG_Env    CursorLineSign
 hi link P2P_OG_Error  ErrorMsg
 
+hi link SimEvents Keyword
+
 hi link CardanoError  Error
 hi link CardanoWarning WarningMsg
 
 hi link P2P_Error   Error
+hi link MUX_Error   Error
 hi link P2P_Warning Title
 hi link P2P_Comment Comment
+hi link TxSubmission Keyword
+hi link ChainSync    Keyword
+hi link BlockFetch   Keyword
+hi link KeepAlive    Keyword
+hi link PingPong     Keyword
+hi link TxSubmissionTrace Comment
 
 hi link IPAddress String
 
@@ -228,7 +257,6 @@ hi link NodeStart  Title
 hi link NodeBasicInfo Constant
 hi link NodeConfig Constant
 hi link NetworkLib ModeMsg
-hi link ChainSync CursorLineSign
 hi link P2P_Protocol WarningMsg
 hi link SendRecv WarningMsg
 hi link Handshake WarningMsg
