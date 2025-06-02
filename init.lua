@@ -302,6 +302,7 @@ require('lazy').setup({
     end,
   },
   'coot/haskell-vim-scripts',
+  'coot/vim-agda-integration',
   'junegunn/vim-easy-align',
   {
       'pwntester/octo.nvim',
@@ -330,6 +331,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
 
   { import = 'custom.plugins' },
+  'github/copilot.vim',
 }, {})
 
 vim.cmd.colorscheme "lovely"
