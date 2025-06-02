@@ -165,30 +165,30 @@ require('lazy').setup({
     priority = 1000,
   },
 
-  {
-    -- Set lualine as statusline
-    'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
-    opts = {
-      options = {
-        icons_enabled = true,
-        theme = opts.lualine,
-        path = 1,
-      },
-      sections = {
-        lualine_a = bool(opts.hostname, {'mode', 'hostname'}, {'mode',}),
-        lualine_b = {'filename'},
-        lualine_c = {'branch', 'diff', 'diagnostics'},
-        lualine_x = {'encoding', 'fileformat', 'filetype'},
-        lualine_y = {'progress'},
-        lualine_z = {'location'}
-      },
-      tabline = {
-        lualine_a = {{'tabs', mode = 2}},
-      },
-      extensions = {'aerial', 'man', 'quickfix'},
-    },
-  },
+  -- {
+  --   -- Set lualine as statusline
+  --   'nvim-lualine/lualine.nvim',
+  --   -- See `:help lualine.txt`
+  --   opts = {
+  --     options = {
+  --       icons_enabled = true,
+  --       theme = 'material', -- opts.lualine,
+  --       path = 1,
+  --     },
+  --     sections = {
+  --       lualine_a = bool(opts.hostname, {'mode', 'hostname'}, {'mode',}),
+  --       lualine_b = {'filename'},
+  --       lualine_c = {'branch', 'diff', 'diagnostics'},
+  --       lualine_x = {'encoding', 'fileformat', 'filetype'},
+  --       lualine_y = {'progress'},
+  --       lualine_z = {'location'}
+  --     },
+  --     tabline = {
+  --       lualine_a = {{'tabs', mode = 2}},
+  --     },
+  --     extensions = {'aerial', 'man', 'quickfix'},
+  --   },
+  -- },
 
   {
     "nvim-neo-tree/neo-tree.nvim",
