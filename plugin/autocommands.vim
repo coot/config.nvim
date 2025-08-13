@@ -11,31 +11,35 @@ fun! AuLocal(bang, cmd)
 endfun
 com! -bang -nargs=? -complete=command AuLocal :call AuLocal(<q-bang>, <q-args>)
 
-let g:guibg="#1a1a1a"
-fun! SetGuiBg()
-  let g:guibg = synIDattr(synIDtrans(hlID("Normal")), "bg")
+" react when 'bg' option is set
+fun! BackgroundOpt()
   if v:option_new != v:option_old
     call system("theme-switch.sh " . v:option_new)
   endif
 endfun
 fun! FollowSystemColors()
-  if system(["dconf", "read", "/org/gnome/desktop/interface/color-scheme"]) =~ 'dark'
-    set bg=dark
-  else
-    set bg=light
+  let bg = system(["gsettings", "get", "org.gnome.desktop.interface", "color-scheme"]) =~ 'dark'
+         \ ? "dark"
+         \ : "light"
+  if &bg != bg
+    noa let &bg=bg
   endif
-endfun
-fun! SetHiHs()
-  hi ConId gui=bold
 endfun
 augroup VIMRC_SetGuiBg
   au!
+  " when received SIGUSR1 from `theme-switch.sh`
+  au Signal      SIGUSR1    :call FollowSystemColors()
   au VimEnter    *          :call FollowSystemColors()
-  au ColorScheme *          :call SetGuiBg()
-  au OptionSet   background :call SetGuiBg()
-  au ColorScheme *          :call SetHiHs()
-augroup END
+  au ColorScheme *          :call BackgroundOpt()
+  au OptionSet   background :call BackgroundOpt()
 
+fun! SetHiConId()
+  hi ConId gui=bold
+endfun
+augroup VIMRC_ConnId
+  au!
+  au ColorScheme * :call SetHiConId()
+augroup END
 
 " Set PS1 for shell invoked from Vim
 " This is very useful when the shell is invoked with :sh vim command.  Then
