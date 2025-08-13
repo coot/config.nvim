@@ -21,16 +21,36 @@ augroup VIMRC_gitStatus
 augroup END
 
 fun Head()
-  let head = FugitiveHead()
-
-  if empty(head)
+  if &filetype == "toggleterm"
     return ""
-  else
-    " Causes ^E and ^Y to be placed on the screen when scrolling with them
-    " so we are caching the values, and refreshing them in VIMRC_gitStatus
-    " autocmd group.
-    return (s:gitStatus ? "" : "● ") . "\ue0a0" . head
   endif
+  " let file = expand("%:p")
+  " if file =~ '^fugitive:\/\/'
+  "   let head = matchlist(file, '\.git\/\/\?\zs[^\/]\{-}\ze\/')[0]
+  "   let tags = systemlist("git tag --points-at=" . head)
+  "   if len(tags) > 0
+  "     let filtered = filter(tags, {idx, tag -> tag =~ 'ouroboros-network-\d*\(\.\d*\)\+'})
+  "     if len(filtered) > 0
+  "       let head = filtered[0]
+  "     else
+  "       let head = tags[len(tags) - 1]
+  "     endif
+  "   endif
+  " else
+  "   let head = systemlist("git rev-parse --abbrev-ref HEAD")[0]
+  "   if head == "HEAD"
+  "     let head = systemlist("git rev-parse --short HEAD")[0]
+  "   endif
+  " endif
+  let head = systemlist("git rev-parse --abbrev-ref HEAD")[0]
+  if head == "HEAD"
+    let head = systemlist("git rev-parse --short HEAD")[0]
+  endif
+
+  " Causes ^E and ^Y to be placed on the screen when scrolling with them
+  " so we are caching the values, and refreshing them in VIMRC_gitStatus
+  " autocmd group.
+  return (s:gitStatus ? "" : "● ") . "\ue0a0" . head
 endfun
 
 fun SearchForward()
@@ -42,5 +62,6 @@ fun SearchForward()
 endfun
 hi GitStatusLine guifg=LightGreen guibg=#242f36 gui=bold cterm=bold
 
-set statusline=%4*%{winnr()}%*\ %<%f\ %4*%m%r%w%y%{Head()}\ %*%=(%l,%c%V)\ %P\ %{SearchForward()}
+set statusline=%4*%{winnr()}%*\ %<%f\ %4*%m%r%w%y\ %#StatusLineNC#\ %{Head()}\ %*%=(%l,%c%V)\ %P\ %{SearchForward()}
+" set statusline=%4*%{winnr()}%*\ %<%f\ %4*%m%r%w%y\ %*%=(%l,%c%V)\ %P\ %{SearchForward()}
 set laststatus=2
