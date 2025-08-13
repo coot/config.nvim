@@ -328,3 +328,17 @@ keyedUntil
 TrJoiningNetwork
 TrKillingNode
 unregisterOutboundConnection
+RunNodeArgs
+readUseBootstrapPeers
+UseBootstrapPeers
+cardano
+InitiatorAndResponderDiffusionMode
+mempools
+GetBigLedgerPeerSnapshot
+sig
+makeNodeConfiguration
+yamamoto
+kazu
+dns
+resolvConcurren
+resolv
