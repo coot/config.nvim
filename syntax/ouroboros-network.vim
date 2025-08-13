@@ -27,6 +27,9 @@ syn keyword P2P_Error TrAcceptError
 syn keyword P2P_Error   ConnectError   ServerError InUnsupportedState ConnectionHandlerError
 syn keyword P2P_Error   ConnectionExists   FobiddenConnection   ConnectionFailure
 syn keyword P2P_Error   AcceptError
+syn keyword P2P_Error DiffusionErrored
+syn keyword P2P_Error TraceTxInboundError ProtocolErrorTxNotRequested ProtocolErrorTxIdsNotRequested ProtocolErrorTxSizeError
+syn match P2P_ERROR /WSA\w\+/
 
 syn keyword P2P_Exit    TrConnectionExit
 syn keyword P2P_Exit      ConnectionExit
@@ -42,6 +45,9 @@ syn keyword P2P_CMState ReservedOutboundSt UnknownConnectionSt UnnegotiatedSt In
 syn keyword P2P_CMState OutboundUniSt OutboundDupSt OutboundIdleSt InboundIdleSt InboundSt DuplexSt
 syn keyword P2P_CMState RemoteIdleSt TerminatingSt TerminatedSt
 syn keyword P2P_CMState Ticking Expired
+
+syn keyword P2P_NCOption PeerSharingEnabled PeerSharingDisabled SocketConfig ncTopologyFile ncProtocolFiles ncStartAsNonProducingNode ncDiffusionMode InitiatorAndResponderDiffusionMode InitiatorOnlyDiffusionMode ncExperimentalProtocolsEnabled ncMaxConcurrencyBulkSync ncMaxConcurrencyDeadline ncProtocolIdleTimeout ncTimeWaitTimeout ncResponderCoreAffinityPolicy ncTxSubmissionLogicVersion TxSubmissionLogicV1 TxSubmissionLogicV2 ncTxSubmissionInitDelay
+syn match P2P_NCOption /\<nc\(Sync\|Deadline\)Target\w*/
 
 syn keyword P2P_IG      TrNewConnection TrResponderRestarted TrWaitIdleRemote TrPromotedToWarmRemote
 syn keyword P2P_IG        NewConnection   ResponderRestarted   WaitIdleRemote   PromotedToWarmRemote
@@ -62,6 +68,7 @@ syn keyword P2P_Counters TrInboundGovernorCounters InboundGovernorCounters hotPe
 syn keyword P2P_Counters hotBigLedgerPeers warmBigLedgerPeers coldBigLedgerPeers
 syn keyword P2P_Counters TrConnectionManagerCounters ConnectionManagerCounters fullduplex duplex unidirectional outbound inbound terminating fullDuplex
 syn keyword P2P_Counters PeerSelectionCounters
+syn keyword P2P_Counters SizeInBytes
 
 syn keyword P2P_Event   EventSay TrDebug
 
@@ -73,7 +80,7 @@ syn keyword MUX_Error   SDUReadTimeout SDUWriteTimeout SDUDecodeError IOExceptio
 syn keyword P2P_CH      TrHandshakeSuccess
 syn keyword P2P_CH        HandshakeSuccess
 syn keyword P2P_Error   TrHandshakeClientError TrHandshakeServerError TrError
-syn keyword P2P_Error     HandshakeClientError   HandshakeServerError   Error
+syn keyword P2P_Error     HandshakeClientError   HandshakeServerError   Error MuxErrored
 syn keyword P2P_Error   ExceededSizeLimit
 syn keyword P2P_Warning ExceededTimeLimit
 
@@ -114,6 +121,7 @@ syn keyword P2P_OG_Notice GossipRequests GossipResults ForgetColdPeers
 syn keyword P2P_OG_Notice LocalRootPersChanged TragetsChanged PublicRootsRequest PublicRootsResults PublicRootsFailure
 syn keyword P2P_OG_Notice PromoteColdDone PromoteColdFailed PromoteWarmDone PromoteWarmFailed PromoteWarmAborted DemoteWarmDome DemoteHotDone DemoteHotFailed
 syn keyword P2P_OG_Notice PromoteColdLocalPeers DemoteLocalHotPeers DemoteAsynchronous GovernorWakeup ChurnWait ChurnMode ChurnModeNormal ChurnAction ChurnTimeout
+syn keyword P2P_OG_Notice DontUseBootstrapPeers UseBootstrapPeers YoungEnough TooOld hasOnlyBootstrapPeers
 
 syn keyword SendRecv  Send Recv
 syn keyword Handshake MsgProposeVersions MsgReplyVersions MsgQueryReply MsgAcceptVersion MsgRefuse
@@ -124,7 +132,7 @@ syn keyword LocalRoots   LocalRootGroups
 syn keyword CardanoError TraceLocalRootFailure TraceLocalRootError
 syn keyword CardanoError      LocalRootError        LocalRootFailure
 
-syn keyword P2P_OG_Info   PeerSelectionState PeerSelectionTargets KnownPeers KnownPeerInfo EstablishedPeers activePeers availableToConnect nextConnectTimes EstablishedPeers nextActivateTimes activePeers publicRootBackoffs
+syn keyword P2P_OG_Info   PeerSelectionState PeerSelectionTargets KnownPeers KnownPeerInfo EstablishedPeers activePeers availableToConnect nextConnectTimes EstablishedPeers nextActivateTimes activePeers publicRootBackoffs establishedPeers knownPeers rootPeers activeLocalRootPeers establishedLocalRootPeers knownLocalRootPeers knownNonRootPeers establishedNonRootPeers activeNonRootPeers
 
 syn keyword P2P_OG_Info   PeerHot PeerWarm PeerCooling PeerCold
 syn keyword P2P_OG_Notice PublicRootsRequest
@@ -189,6 +197,9 @@ syntax keyword PeerSharing MsgShareRequest MsgSharePeers MsgDone prtcl-10
 syntax match   PeerSharing /\<MiniProtocolNum 10\>/
 syntax keyword PingPong MsgPing MsgPong MsgDone prtcl-9
 syntax match   PingPong /\<MiniProtocolNum 9\>/
+
+syntax keyword TxSubmission TxDecisions unacknowledgedTxIds requestedTxsInflight txsToMempool txsToRequest txIdsToAcknowledge txIdsToRequest
+syntax keyword TxSubmission TxSubmissionProcessed TraceMempoolAddedTx
 
 syntax keyword TxSubmissionTrace TraceTxSubmissionCollected TraceTxSubmissionProcessed TraceTxInboundCanRequestMoreTxs TraceTxInboundCannotRequestMoreTxs TraceTxInboundAddedToMempool TraceTxInboundRejectedFromMempool TraceTxInboundTerminated TraceTxInboundDecision
 syntax keyword TxSubmissionTrace TraceTxDecisions TraceSharedTxState
@@ -260,3 +271,4 @@ hi link NetworkLib ModeMsg
 hi link P2P_Protocol WarningMsg
 hi link SendRecv WarningMsg
 hi link Handshake WarningMsg
+hi link P2P_NCOption Constant
