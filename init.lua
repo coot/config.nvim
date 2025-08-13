@@ -203,31 +203,65 @@ require('lazy').setup({
   },
 
   -- amongst your other plugins
-  {'akinsho/toggleterm.nvim',
-    version = "*",
-    config = function ()
-      require("toggleterm").setup{
-        size = function(term)
-          if term.direction == 'horizontal' then
-            return math.min(40, vim.o.lines * 0.4)
-          elseif term.direction == 'float' then
-            return math.min(40, vim.o.lines * 0.4)
-          elseif term.direction == 'vertical' then
-            return vim.o.columns * 0.4
-          else
-            return 20
+  -- {'akinsho/toggleterm.nvim',
+  --   version = "*",
+  --   config = function ()
+  --     require("toggleterm").setup{
+  --       size = function(term)
+  --         if term.direction == 'horizontal' then
+  --           return math.min(40, vim.o.lines * 0.4)
+  --         elseif term.direction == 'float' then
+  --           return math.min(40, vim.o.lines * 0.4)
+  --         elseif term.direction == 'vertical' then
+  --           return vim.o.columns * 0.4
+  --         else
+  --           return 20
+  --         end
+  --       end,
+  --       -- open_mapping = [[<leader>t]],
+  --       start_in_insert = false,
+  --       -- starting in insert mode is done by the map in
+  --       -- lua/custom/plugins/maps.lua
+  --       auto_scroll = false,
+  --       -- auto scroll messes terminal right now
+  --       shade_terminals = false,
+  --       highlights = none,
+  --     }
+  --   end
+  -- },
+  {
+    'dawsers/floaterm.nvim',
+    -- You don't need this dependency, but the picker is nicer, with preview
+    dependencies = {
+      'folke/snacks.nvim',
+    },
+    config = function()
+      local terminal = require('floaterm')
+      -- You need to call setup
+      terminal.setup()
+      vim.keymap.set({ 'n', 't' }, '<leader>tf', function() terminal.open() end, { silent = true, desc = 'New floating terminal' })
+      vim.keymap.set({ 'n', 't' }, '<leader>tn', function() terminal.next() end, { silent = true, desc = 'Next floating terminal' })
+      vim.keymap.set({ 'n', 't' }, '<leader>tp', function() terminal.prev() end, { silent = true, desc = 'Prev floating terminal' })
+      vim.keymap.set({ 'n', 't' }, '<leader>tt', function() terminal.toggle() end, { silent = true, desc = 'Toggle floating terminal' })
+      vim.keymap.set({ 'n', 't' }, "<leader>tl", function() terminal.pick() end, { silent = true, desc = 'Floaterm picker' })
+      vim.keymap.set({ 'n', 't' }, "<leader>t-", function() terminal.resize(-0.05) end, { silent = true, desc = 'Floaterm inc size' })
+      vim.keymap.set({ 'n', 't' }, "<leader>t=", function() terminal.resize(0.05) end, { silent = true, desc = 'Floaterm dec size' })
+      -- Example to run an arbitrary command
+      vim.keymap.set('n', '<leader>tv', function()
+          local cmd = "vifm"
+          local file = vim.fn.expand("%:p")
+          if file and file ~= "" then
+            cmd = cmd .. " --select " .. file
           end
+          terminal.open({}, cmd)
         end,
-        -- open_mapping = [[<leader>t]],
-        start_in_insert = false,
-        -- starting in insert mode is done by the map in
-        -- lua/custom/plugins/maps.lua
-        auto_scroll = false,
-        -- auto scroll messes terminal right now
-      }
+        { silent = true, desc = "vifm at current dir" }
+      )
+      -- Set highlighting groups if your theme doesn't include them
+      vim.api.nvim_set_hl(0, 'FloatermNumber', { link = 'Number' })
+      vim.api.nvim_set_hl(0, 'FloatermDirectory', { link = 'Function' })
     end
   },
-
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
