@@ -4,6 +4,7 @@
 
 syntax clear
 setl iskeyword+=-
+setl cursorline
 
 " systemd service message
 syn match NodeStart /Started cardano-node.service - cardano-node service./
@@ -77,6 +78,8 @@ syn keyword P2P_Error   TrMuxErrored TrUnexpectedlyFalseAssertion
 syn keyword P2P_Error   NotReleasedConnections
 syn keyword MUX_Error   SDUReadTimeout SDUWriteTimeout SDUDecodeError IOException IngressQueueOverRun UnknownMiniProtocol
 
+syn keyword MUX         MuxStarting MuxStopping MuxStopped NewMux StartMiniProtocol
+
 syn keyword P2P_CH      TrHandshakeSuccess
 syn keyword P2P_CH        HandshakeSuccess
 syn keyword P2P_Error   TrHandshakeClientError TrHandshakeServerError TrError
@@ -90,6 +93,7 @@ syn keyword P2P_Governor PeerStatusChanged HotToCold WarmToHot WarmToCold ColdTo
 syn keyword P2P_Governor PeerMonitoringResult
 syn keyword P2P_Error PeerMonitoringError AcquireConnectionError
 syn keyword ChainSync ChainSyncClientEvent TraceTermination
+syn keyword ChainSync_Error HeaderError InvalidIntersection InvalidBlock CandidateTooSparse InFutureHeaderExceedsClockSkew HistoricityError EmptyBucket InvalidJumpResponse DensityTooLow
 
 syn match IPAddress /\(\d\{1,3}\.\)\{3}\d\{1,3}\(:\d\+\)\?/
 
@@ -111,7 +115,7 @@ syn keyword P2P_OG_Notice TraceLocalRootDomains TraceLocalRootDNSMap TraceLocalR
 syn keyword P2P_OG_Notice TraceLocalRootPersChanged TraceTragetsChanged TracePublicRootsRequest TracePublicRootsResults TracePublicRootsFailure
 syn keyword P2P_OG_Notice TraceGossipRequests TraceGossipResults TraceForgetColdPeers
 syn keyword P2P_OG_Notice TracePromoteColdDone TracePromoteColdFailed TracePromoteWarmDone TracePromoteWarmFailed TracePromoteWarmAborted TraceDemoteWarmDome TraceDemoteHotDone TraceDemoteHotFailed TracePromoteColdBigLedgerPeerDone TracePromoteWarmBigLedgerPeerDone
-syn keyword P2P_OG_Notice TracePromoteColdLocalPeers TraceDemoteLocalHotPeers TraceDemoteLocalAsynchronous TraceDemoteAsynchronous TraceGovernorWakeup TraceChurnWait TraceChurnMode
+syn keyword P2P_OG_Notice TracePromoteColdLocalPeers TraceDemoteLocalHotPeers TraceDemoteLocalAsynchronous TraceDemoteAsynchronous TraceGovernorWakeup TraceChurnWait TraceChurnMode TraceUseBootstrapPeersChanged TraceEnvSetLedgerStateJudgement
 
 " the same but without 'Trace'
 syn keyword P2P_OG_Notice PromoteWarmLocalPeers PromoteColdLocalPers
@@ -120,8 +124,12 @@ syn keyword P2P_OG_Notice PromoteColdBigLedgerPeers PromoteWarmBigLedgerPeers De
 syn keyword P2P_OG_Notice GossipRequests GossipResults ForgetColdPeers
 syn keyword P2P_OG_Notice LocalRootPersChanged TragetsChanged PublicRootsRequest PublicRootsResults PublicRootsFailure
 syn keyword P2P_OG_Notice PromoteColdDone PromoteColdFailed PromoteWarmDone PromoteWarmFailed PromoteWarmAborted DemoteWarmDome DemoteHotDone DemoteHotFailed
-syn keyword P2P_OG_Notice PromoteColdLocalPeers DemoteLocalHotPeers DemoteAsynchronous GovernorWakeup ChurnWait ChurnMode ChurnModeNormal ChurnAction ChurnTimeout
+syn keyword P2P_OG_Notice PromoteColdLocalPeers DemoteLocalHotPeers DemoteAsynchronous GovernorWakeup ChurnWait ChurnMode ChurnModeNormal ChurnTimeout
+syn keyword P2P_OG_Notice ChurnAction
+syn match   P2P_OG_Notice /\<\(Increased\|Decreased\)\(Active\|Established\|Known\)\(BigLedger\|LocalRoot\)\?Peers\>/
 syn keyword P2P_OG_Notice DontUseBootstrapPeers UseBootstrapPeers YoungEnough TooOld hasOnlyBootstrapPeers
+syn keyword P2P_OG_Notice GovernorAssociationMode LocalRootsOnly Unrestricted
+syn keyword P2P_OG_Notice GenesisMode PraosMode
 
 syn keyword SendRecv  Send Recv
 syn keyword Handshake MsgProposeVersions MsgReplyVersions MsgQueryReply MsgAcceptVersion MsgRefuse
@@ -196,17 +204,26 @@ syntax match   KeepAlive /\<MiniProtocolNum 8\>/
 syntax keyword PeerSharing MsgShareRequest MsgSharePeers MsgDone prtcl-10
 syntax match   PeerSharing /\<MiniProtocolNum 10\>/
 syntax keyword PingPong MsgPing MsgPong MsgDone prtcl-9
-syntax match   PingPong /\<MiniProtocolNum 9\>/
+syntax match   PingPong /\<MiniProtocolNum 9\\>/
+
+syntax match   SigSubmission /\<MiniProtocolNum 11\>/
+hi link SigSubmission TxSubmission
+
+syntax keyword TypedProtocol SendMsg RecvMsg
 
 syntax keyword TxSubmission TxDecisions unacknowledgedTxIds requestedTxsInflight txsToMempool txsToRequest txIdsToAcknowledge txIdsToRequest
 syntax keyword TxSubmission TxSubmissionProcessed TraceMempoolAddedTx
 
 syntax keyword TxSubmissionTrace TraceTxSubmissionCollected TraceTxSubmissionProcessed TraceTxInboundCanRequestMoreTxs TraceTxInboundCannotRequestMoreTxs TraceTxInboundAddedToMempool TraceTxInboundRejectedFromMempool TraceTxInboundTerminated TraceTxInboundDecision
 syntax keyword TxSubmissionTrace TraceTxDecisions TraceSharedTxState
+syntax keyword TxSubmission TxSubmissionCollected TxSubmissionProcessed TxInboundCanRequestMoreTxs TxInboundCannotRequestMoreTxs TxInboundAddedToMempool TxInboundRejectedFromMempool TxInboundTerminated TxInboundDecision
+syntax keyword TxSubmission TxDecisions SharedTxState
 
 syntax match NetworkLib /Network\.Socket\.\w\+/
 
 syntax keyword SimEvents TrJoiningNetwork TrKillingNode TrReconfiguringNode TrUpdatingDNS TrRunning TrErrored
+
+syntax keyword MuxChannel Channel SendStart SendEnd RecvStart RecvEnd
 
 hi link P2P_Provenance Constant
 hi link P2P_CM      Statement
@@ -231,6 +248,7 @@ hi link CardanoError  Error
 hi link CardanoWarning WarningMsg
 
 hi link P2P_Error   Error
+hi link ChainSync_Error Error
 hi link MUX_Error   Error
 hi link P2P_Warning Title
 hi link P2P_Comment Comment
@@ -272,3 +290,6 @@ hi link P2P_Protocol WarningMsg
 hi link SendRecv WarningMsg
 hi link Handshake WarningMsg
 hi link P2P_NCOption Constant
+hi link MuxChannel LineNr
+hi link TypedProtocol Keyword
+hi link MUX LineNr
