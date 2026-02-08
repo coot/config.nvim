@@ -382,3 +382,8 @@ augroup NVIM_TITLESTRING
   au!
   au BufEnter * let &titlestring=fnamemodify(getcwd(), ":t")
 augroup END
+
+augroup CDDL
+  au!
+  au BufRead,BufNewFile *.cddl set ft=cddl
+augroup END
