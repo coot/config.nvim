@@ -59,10 +59,12 @@ vim.api.nvim_set_keymap('n', 'cw', 'dwi', {})
 -- Terminal maps
 -- `<leader>t` is set in `toggleterm` setup in `init.lua`
 -- vim.api.nvim_set_keymap("n", "<leader>t", "<cmd>ToggleTerm direction=horizontal<CR><cmd>startinsert<CR>", {noremap = true, silent = true})
--- vim.api.nvim_set_keymap("n", "<leader>v", "<cmd>ToggleTerm direction=vertical<CR><cmd>startinsert<CR>", {noremap = true, silent = true})
--- vim.api.nvim_set_keymap("n", "<leader>f", "<cmd>ToggleTerm direction=float<CR><cmd>startinsert<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>v", "<cmd>ToggleTerm direction=vertical<CR><cmd>startinsert<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>f", "<cmd>ToggleTerm direction=float<CR><cmd>startinsert<CR>", {noremap = true, silent = true})
 
 vim.api.nvim_set_keymap('t', [[<c-\>]], [[<c-\><c-n>]], {noremap = true})
+vim.api.nvim_set_keymap('i', '<A-r>', '<C-r>', {expr = false, noremap = false})
+vim.api.nvim_set_keymap('c', '<A-r>', '<C-r>', {expr = false, noremap = false})
 vim.api.nvim_set_keymap('t', '<A-r>', [['<C-\><C-N>"'.nr2char(getchar()).'pi']], {expr = true, noremap = true})
 vim.api.nvim_set_keymap('t', '<C-W>', [['<C-\><C-N><C-W>'.nr2char(getchar())]], {expr = true, noremap = true})
 vim.api.nvim_set_keymap('t', '<C-Y>', [[<C-\><C-N><C-Y>]], {noremap = true})
@@ -71,5 +73,12 @@ vim.api.nvim_set_keymap('t', '<C-b>', [[<C-\><C-N><C-b>]], {noremap = true})
 local g = vim.g
 g.m = '\\v^(\\<{7}|\\|{7}|\\>{7}|\\={7})(\\s|$)@='
 vim.g = g
+
+-- Copilot
+vim.keymap.set('i', '<C-J>', 'copilot#Accept("\\<CR>")', {
+  expr = true,
+  replace_keycodes = false
+})
+vim.g.copilot_no_tab_map = true
 
 return {}

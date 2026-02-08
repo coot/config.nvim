@@ -51,7 +51,8 @@ require('lazy').setup({
   'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
+  -- interfers with my Haskell setup
+  -- 'tpope/vim-sleuth',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -204,32 +205,35 @@ require('lazy').setup({
   },
 
   -- amongst your other plugins
-  -- {'akinsho/toggleterm.nvim',
-  --   version = "*",
-  --   config = function ()
-  --     require("toggleterm").setup{
-  --       size = function(term)
-  --         if term.direction == 'horizontal' then
-  --           return math.min(40, vim.o.lines * 0.4)
-  --         elseif term.direction == 'float' then
-  --           return math.min(40, vim.o.lines * 0.4)
-  --         elseif term.direction == 'vertical' then
-  --           return vim.o.columns * 0.4
-  --         else
-  --           return 20
-  --         end
-  --       end,
-  --       -- open_mapping = [[<leader>t]],
-  --       start_in_insert = false,
-  --       -- starting in insert mode is done by the map in
-  --       -- lua/custom/plugins/maps.lua
-  --       auto_scroll = false,
-  --       -- auto scroll messes terminal right now
-  --       shade_terminals = false,
-  --       highlights = none,
-  --     }
-  --   end
-  -- },
+  {'akinsho/toggleterm.nvim',
+    version = "*",
+    config = function ()
+      require("toggleterm").setup{
+        size = function(term)
+          if term.direction == 'horizontal' then
+            return math.min(40, vim.o.lines * 0.4)
+          elseif term.direction == 'float' then
+            return math.min(40, vim.o.lines * 0.4)
+          elseif term.direction == 'vertical' then
+            return vim.o.columns * 0.4
+          else
+            return 20
+          end
+        end,
+        open_mapping = [[<leader>t]],
+        start_in_insert = true,
+        -- starting in insert mode is done by the map in
+        -- lua/custom/plugins/maps.lua
+        auto_scroll = false,
+        -- auto scroll messes terminal right now
+        shade_terminals = false,
+        highlights = {
+          StatusLine = { link = "StatusLine", },
+          StatusLineNC = { link = "StatusLineNC", },
+        },
+      }
+    end
+  },
   {
     'dawsers/floaterm.nvim',
     -- You don't need this dependency, but the picker is nicer, with preview
@@ -240,15 +244,14 @@ require('lazy').setup({
       local terminal = require('floaterm')
       -- You need to call setup
       terminal.setup()
-      vim.keymap.set({ 'n', 't' }, '<leader>tf', function() terminal.open() end, { silent = true, desc = 'New floating terminal' })
-      vim.keymap.set({ 'n', 't' }, '<leader>tn', function() terminal.next() end, { silent = true, desc = 'Next floating terminal' })
-      vim.keymap.set({ 'n', 't' }, '<leader>tp', function() terminal.prev() end, { silent = true, desc = 'Prev floating terminal' })
-      vim.keymap.set({ 'n', 't' }, '<leader>tt', function() terminal.toggle() end, { silent = true, desc = 'Toggle floating terminal' })
-      vim.keymap.set({ 'n', 't' }, "<leader>tl", function() terminal.pick() end, { silent = true, desc = 'Floaterm picker' })
-      vim.keymap.set({ 'n', 't' }, "<leader>t-", function() terminal.resize(-0.05) end, { silent = true, desc = 'Floaterm inc size' })
-      vim.keymap.set({ 'n', 't' }, "<leader>t=", function() terminal.resize(0.05) end, { silent = true, desc = 'Floaterm dec size' })
+      -- Find a better leader than <leader>f, it clashed with <leader>f in lua/custom/plugins/maps.lua
+      -- vim.keymap.set({ 'n', 't' }, '<leader>ft', function() terminal.open() end, { silent = true, desc = 'New floating terminal' })
+      -- vim.keymap.set({ 'n', 't' }, '<leader>fn', function() terminal.next() end, { silent = true, desc = 'Next floating terminal' })
+      -- vim.keymap.set({ 'n', 't' }, '<leader>fp', function() terminal.prev() end, { silent = true, desc = 'Prev floating terminal' })
+      -- vim.keymap.set({ 'n', 't' }, '<leader>ff', function() terminal.toggle() end, { silent = true, desc = 'Toggle floating terminal' })
+      -- vim.keymap.set({ 'n', 't' }, "<leader>fl", function() terminal.pick() end, { silent = true, desc = 'Floaterm picker' })
       -- Example to run an arbitrary command
-      vim.keymap.set('n', '<leader>tv', function()
+      vim.keymap.set('n', '<leader>fv', function()
           local cmd = "vifm"
           local file = vim.fn.expand("%:p")
           if file and file ~= "" then
@@ -575,38 +578,48 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- setup hls without using mason, it's managed by ghcup
-local lspconfig = require 'lspconfig'
-lspconfig.hls.setup{
+vim.lsp.config.hls = {
   on_attach = lsp_on_attach,
   cmd = {'haskell-language-server-wrapper', '--lsp', '--log-file', '/tmp/hls.log'},
   init_options = {
     sessionLoading = "multipleComponents",
-    plugin = { stan = { globalOn = false } }
+    plugin = {
+      stan   = { globalOn = false },
+      rename = { config = { crossModule = true } }
+    }
   },
   filetypes = { 'haskell', 'lhaskell', 'cabal' },
 }
-lspconfig.rust_analyzer.setup{
+vim.lsp.config.rust_analyzer = {
   ['rust-analyzer'] = {},
 }
+vim.lsp.config["GitHub Copilot"] = {}
+
+vim.lsp.enable('hls')
+vim.lsp.enable('rust_analyzer')
+vim.lsp.enable("GitHub Copilot")
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
-mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
-  automatic_installation = { exclude = {'hls'} },
-}
+-- TODO: once using nvim-0.11, these two needs to be ported to 'vim.lsp.config'
+-- See ~/.local/share/nvim/lazy/mason-lspconfig.nvim/CHANGELOG.md
 
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    lspconfig[server_name].setup {
-      capabilities = capabilities,
-      on_attach = lsp_on_attach,
-      settings = servers[server_name],
-      filetypes = (servers[server_name] or {}).filetypes,
-    }
-  end
-}
+-- mason_lspconfig.setup {
+--   ensure_installed = vim.tbl_keys(servers),
+--   automatic_installation = { exclude = {'hls'} },
+-- }
+
+-- mason_lspconfig.setup_handlers {
+--   function(server_name)
+--     lspconfig[server_name].setup {
+--       capabilities = capabilities,
+--       on_attach = lsp_on_attach,
+--       settings = servers[server_name],
+--       filetypes = (servers[server_name] or {}).filetypes,
+--     }
+--   end
+-- }
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
@@ -664,6 +677,13 @@ local g = vim.g
 g.loaded_ruby_provider = 0
 g.loaded_node_provider = 0
 g.loaded_perl_provider = 0
+g.sudo_askpass = '/usr/libexec/openssh/ssh-askpass'
+-- skip undofile to not ask for password twice
+g.SudoEdit_skip_wundo = 1
+-- no_gui doesn't work
+-- g.sudo_no_gui = 1
+-- g.sudoAuth = "sudo"
+-- g:sudoAuthArg = "-S"
 vim.g = g
 
 -- The line beneath this is called `modeline`. See `:help modeline`
