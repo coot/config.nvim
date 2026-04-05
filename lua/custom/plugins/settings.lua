@@ -4,13 +4,14 @@ vim.o.expandtab = true
 vim.o.encoding = 'utf-8'
 
 vim.o.autowrite = true
+vim.o.autowriteall = true
 vim.o.autoread = true
 vim.o.isfname = '@,48-57,/,.,-,_,+,,,#,$,%,~'
-vim.o.listchars = 'tab:▸ ,eol:$,trail:░,nbsp:-'
+vim.o.listchars = 'tab:▸ ,eol:$,lead:░,trail:░,nbsp:-'
 
 vim.o.wildmenu = true
 vim.o.wildmode = 'longest:full,full'
-vim.o.completeopt = 'menu'
+vim.o.autocomplete = true -- v0.12
 vim.o.tagcase = 'match'
 
 vim.o.showfulltag = true
@@ -61,7 +62,7 @@ vim.o.updatetime = 250
 vim.o.timeoutlen = 750
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menuone,noselect,nearest,popup' -- v0.12
 
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
@@ -91,5 +92,6 @@ vim.o.rnu = false
 vim.o.grepprg = "rg --vimgrep --with-filename"
 
 vim.o.title = true
+vim.o.diffopt = 'internal,filler,closeoff,indent-heuristic,inline:word,linematch:40' -- v0.12
 
 return {}
