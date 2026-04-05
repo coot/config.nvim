@@ -306,14 +306,14 @@ require('lazy').setup({
     },
   },
 
-  {
-    -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
-    },
-    build = ':TSUpdate',
-  },
+  -- {
+  --   -- Highlight, edit, and navigate code
+  --   'nvim-treesitter/nvim-treesitter',
+  --   dependencies = {
+  --     'nvim-treesitter/nvim-treesitter-textobjects',
+  --   },
+  --   build = ':TSUpdate',
+  -- },
 
   -- {
   --   'ldelossa/gh.nvim',
@@ -486,7 +486,7 @@ local treesitterConfig = {
 --     files = {"src/parser.c", "src/scanner.c", "src/unicode.h"}
 --   }
 -- }
-require('nvim-treesitter.configs').setup(treesitterConfig)
+-- require('nvim-treesitter.configs').setup(treesitterConfig)
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
