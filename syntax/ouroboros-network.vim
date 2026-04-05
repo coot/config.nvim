@@ -2,7 +2,7 @@
 " `Ouroboros.Network.ConnectionManager.Server.bidirectional_IO`
 " test.
 
-syntax clear
+" syntax clear
 setl iskeyword+=-
 setl cursorline
 
@@ -30,6 +30,12 @@ syn keyword P2P_Error   ConnectionExists   FobiddenConnection   ConnectionFailur
 syn keyword P2P_Error   AcceptError
 syn keyword P2P_Error DiffusionErrored
 syn keyword P2P_Error TraceTxInboundError ProtocolErrorTxNotRequested ProtocolErrorTxIdsNotRequested ProtocolErrorTxSizeError
+
+" tx-submission
+syn keyword P2P_Error ProtocolErrorAckedTooManyTxids ProtocolErrorRequestedNothing ProtocolErrorRequestedTooManyTxids ProtocolErrorRequestBlocking ProtocolErrorRequestedUnavailableTx
+" sig-submission
+syn keyword P2P_Error ProtocolErrorAckedTooManySigIds ProtocolErrorRequestedTooManySigIds ProtocolErrorRequestNonBlocking ProtocolErrorRequestedUnavailableSig ProtocolErrorSigIdsNotRequested ProtocolErrorSigNotRequested
+
 syn match P2P_ERROR /WSA\w\+/
 
 syn keyword P2P_Exit    TrConnectionExit
@@ -115,7 +121,8 @@ syn keyword P2P_OG_Notice TraceLocalRootDomains TraceLocalRootDNSMap TraceLocalR
 syn keyword P2P_OG_Notice TraceLocalRootPersChanged TraceTragetsChanged TracePublicRootsRequest TracePublicRootsResults TracePublicRootsFailure
 syn keyword P2P_OG_Notice TraceGossipRequests TraceGossipResults TraceForgetColdPeers
 syn keyword P2P_OG_Notice TracePromoteColdDone TracePromoteColdFailed TracePromoteWarmDone TracePromoteWarmFailed TracePromoteWarmAborted TraceDemoteWarmDome TraceDemoteHotDone TraceDemoteHotFailed TracePromoteColdBigLedgerPeerDone TracePromoteWarmBigLedgerPeerDone
-syn keyword P2P_OG_Notice TracePromoteColdLocalPeers TraceDemoteLocalHotPeers TraceDemoteLocalAsynchronous TraceDemoteAsynchronous TraceGovernorWakeup TraceChurnWait TraceChurnMode TraceUseBootstrapPeersChanged TraceEnvSetLedgerStateJudgement
+syn keyword P2P_OG_Notice TracePromoteColdLocalPeers TraceDemoteLocalHotPeers TraceDemoteLocalAsynchronous TraceDemoteAsynchronous TraceGovernorWakeup TraceChurnWait TraceChurnMode TraceEnvSetLedgerStateJudgement
+syn keyword P2P_OG_Important TraceUseBootstrapPeersChanged 
 
 " the same but without 'Trace'
 syn keyword P2P_OG_Notice PromoteWarmLocalPeers PromoteColdLocalPers
@@ -129,7 +136,7 @@ syn keyword P2P_OG_Notice ChurnAction
 syn match   P2P_OG_Notice /\<\(Increased\|Decreased\)\(Active\|Established\|Known\)\(BigLedger\|LocalRoot\)\?Peers\>/
 syn keyword P2P_OG_Notice DontUseBootstrapPeers UseBootstrapPeers YoungEnough TooOld hasOnlyBootstrapPeers
 syn keyword P2P_OG_Notice GovernorAssociationMode LocalRootsOnly Unrestricted
-syn keyword P2P_OG_Notice GenesisMode PraosMode
+syn keyword P2P_OG_Important GenesisMode PraosMode
 
 syn keyword SendRecv  Send Recv
 syn keyword Handshake MsgProposeVersions MsgReplyVersions MsgQueryReply MsgAcceptVersion MsgRefuse
@@ -186,6 +193,9 @@ syntax keyword ChainDB TraceAddBlockEvent AddedToCurrentChain TraceCopyToImmutab
 syntax keyword ChainDB TraceImmDbEvent TraceCacheEvent TracePastChunkEvict
 syntax keyword ChainDB AddBlockValidation UpdateLedgerDb
 syntax keyword ChainDB TraceFollowerEvent NewFollower
+syntax keyword GSMKind GSM
+syntax keyword GSM GsmEventInitializedInCaughtUp GsmEventInitializedInPreSyncing GsmEventEnterCaughtUp GsmEventLeaveCaughtUp GsmEventPreSyncingToSyncing GsmEventSyncingToPreSyncing
+
 syntax keyword P2P_Protocol KeepAlive TxSubmission ChainSync BlockFetch LocalTxSubmission LocalStateQuery Handshake
 syntax keyword P2P_Protocol ClientAgency ServerAgency
 syntax keyword P2P_Protocol TokIdle TokNext TokIntersect TokDone TokClient TokServer TokBusy TokStreaming TokPropose TokConfirm
@@ -238,6 +248,7 @@ hi link P2P_Counters NonText
 hi link P2P_Governor Constant
 
 hi link P2P_OG_Notice Exception
+hi link P2P_OG_Important Title
 hi link P2P_OG_Info   SpecialKey
 hi link P2P_OG_Env    CursorLineSign
 hi link P2P_OG_Error  ErrorMsg
@@ -273,8 +284,9 @@ hi link FetchTrace Constant
 hi ChainDBKind cterm=bold gui=bold guifg=LightGreen
 hi ChainDBInfo guifg=LightGreen
 hi ChainDBDebug guifg=#505050
-" hi link ChainDB Constant
-hi ChainDB guifg=#7656ff
+hi link ChainDB Keyword
+hi GSMKind cterm=bold gui=bold guifg=LightGreen
+hi link GSM NodeStart
 
 hi P2P_IOSimPOR_  cterm=bold guifg=#d35704
 hi P2P_IOSimPOR              guifg=#993f04

@@ -4,7 +4,6 @@ syn match SimThreadId /Thread\s\({[^}]\{-}}\|\[[^\]]\{-}\]\)\(\.\d\+\|\.-\)\?/
 syn match SimTVarId /TVarId\s\d\+/
 
 syn keyword SimEvent
-      \ Say
       \ Log
       \ Mask
       \ Throw
@@ -34,6 +33,10 @@ syn keyword SimEvent
       \ Deschedule
       \ Reschedule
 
+syn keyword SimUserEvent
+      \ Say
+      \ Dynamic
+
 syn keyword SimEventThread
       \ ThreadUnhandled
       \ ThreadForked
@@ -56,9 +59,11 @@ syn keyword SimResultError
       \ InternalError
 
 syn match SimStart /Simulation trace with discovered schedules:/
+syn match SimEvaluationError /error evaluating trace/
 syn keyword SimStart SimStart
 
 hi link SimEvent Structure
+hi link SimUserEvent String
 hi link SimPOREvent Statement
 hi link SimEventSay String
 hi link SimThreadId Number
@@ -67,3 +72,4 @@ hi link SimEventThread SignColumn
 hi link SimStart Title
 hi link SimResult Title
 hi link SimResultError Error
+hi link SimEvaluationError Error
