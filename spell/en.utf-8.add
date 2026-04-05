@@ -360,3 +360,7 @@ inlining
 ToJSON
 DMQ
 NF
+noAttenuation
+contravariant
+Kleisli
+rethrow

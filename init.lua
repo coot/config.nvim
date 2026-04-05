@@ -220,10 +220,6 @@ require('lazy').setup({
             return 20
           end
         end,
-        open_mapping = [[<leader>t]],
-        start_in_insert = true,
-        -- starting in insert mode is done by the map in
-        -- lua/custom/plugins/maps.lua
         auto_scroll = false,
         -- auto scroll messes terminal right now
         shade_terminals = false,
