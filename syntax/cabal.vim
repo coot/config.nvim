@@ -75,7 +75,12 @@ syn keyword cabalTruth true false
 
 " cabalStatementRegion which limits the scope of cabalStatement keywords, this
 " way they are not highlighted in description.
-syn region cabalStatementRegion start=+^\s*\(--\)\@<!\k\+\s*:+ end=+:+
+"
+" cabal state region is interfering with sublibraries which have similar
+" syntax, e.g. we might have `library:sublibrary` or
+" `library:{sublibrary1,sublibrary2}` in `build-depends` which should not be
+" a statement region.
+syn region cabalStatementRegion start=+^\s*\(--\)\@<!\k\+\s*:\%(\w\|{\)\@!+ end=+:+
 syn keyword cabalStatement contained containedin=cabalStatementRegion
 	\ default-language
 	\ default-extensions
