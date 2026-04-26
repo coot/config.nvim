@@ -11,7 +11,7 @@ vim.o.listchars = 'tab:▸ ,eol:$,lead:░,trail:░,nbsp:-'
 
 vim.o.wildmenu = true
 vim.o.wildmode = 'longest:full,full'
-vim.o.autocomplete = true -- v0.12
+vim.o.autocomplete = false -- v0.12
 vim.o.tagcase = 'match'
 
 vim.o.showfulltag = true
