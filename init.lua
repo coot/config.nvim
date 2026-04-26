@@ -669,6 +669,9 @@ local cmpConfig = {
 }
 cmp.setup(cmpConfig)
 
+vim.cmd.packadd("nvim.difftool")
+vim.cmd.packadd("nvim.undotree")
+
 local g = vim.g
 g.loaded_ruby_provider = 0
 g.loaded_node_provider = 0
