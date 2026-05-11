@@ -18,9 +18,15 @@ fun! BackgroundOpt()
   endif
 endfun
 fun! FollowSystemColors()
-  let bg = system(["gsettings", "get", "org.gnome.desktop.interface", "color-scheme"]) =~ 'dark'
-         \ ? "dark"
-         \ : "light"
+  let scheme = system(["gsettings", "get", "org.gnome.desktop.interface", "color-scheme"])
+  if scheme == "dark"
+    let bg = "dark"
+  elseif scheme == "light"
+    let bg = "light"
+  else
+    " it might be 'No schemas installed' when logged via ssh
+    return
+  endif
   if &bg != bg
     noa let &bg=bg
   endif
