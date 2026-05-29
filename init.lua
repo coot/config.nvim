@@ -366,6 +366,12 @@ require('lazy').setup({
 
   { import = 'custom.plugins' },
   'github/copilot.vim',
+  {
+    "greggh/claude-code.nvim",
+    config = function()
+      require("claude-code").setup()
+    end
+  }
 }, {})
 
 vim.cmd.colorscheme "lovely"
@@ -576,7 +582,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- setup hls without using mason, it's managed by ghcup
 vim.lsp.config.hls = {
   on_attach = lsp_on_attach,
-  cmd = {'haskell-language-server-wrapper', '--lsp', '--log-file', '/tmp/hls.log'},
+  cmd = {'haskell-language-server-wrapper', '--lsp', '--debug', '--log-file', '/tmp/hls.log'},
   init_options = {
     sessionLoading = "multipleComponents",
     plugin = {
