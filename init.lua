@@ -247,16 +247,16 @@ require('lazy').setup({
       -- vim.keymap.set({ 'n', 't' }, '<leader>ff', function() terminal.toggle() end, { silent = true, desc = 'Toggle floating terminal' })
       -- vim.keymap.set({ 'n', 't' }, "<leader>fl", function() terminal.pick() end, { silent = true, desc = 'Floaterm picker' })
       -- Example to run an arbitrary command
-      vim.keymap.set('n', '<leader>fv', function()
-          local cmd = "vifm"
-          local file = vim.fn.expand("%:p")
-          if file and file ~= "" then
-            cmd = cmd .. " --select " .. file
-          end
-          terminal.open({}, cmd)
-        end,
-        { silent = true, desc = "vifm at current dir" }
-      )
+      -- vim.keymap.set('n', '<leader>fv', function()
+      --     local cmd = "vifm"
+      --     local file = vim.fn.expand("%:p")
+      --     if file and file ~= "" then
+      --       cmd = cmd .. " --select " .. file
+      --     end
+      --     terminal.open({}, cmd)
+      --   end,
+      --   { silent = true, desc = "vifm at current dir" }
+      -- )
       -- Set highlighting groups if your theme doesn't include them
       vim.api.nvim_set_hl(0, 'FloatermNumber', { link = 'Number' })
       vim.api.nvim_set_hl(0, 'FloatermDirectory', { link = 'Function' })
