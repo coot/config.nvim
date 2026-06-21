@@ -18,6 +18,9 @@ fun! BackgroundOpt()
   endif
 endfun
 fun! FollowSystemColors()
+  if empty(findfile("gsettings", substitute($PATH, ":", ",", "g")))
+    return
+  endif
   let scheme = system(["gsettings", "get", "org.gnome.desktop.interface", "color-scheme"])
   if scheme =~ "dark"
     let bg = "dark"
