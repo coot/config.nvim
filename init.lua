@@ -277,12 +277,11 @@ require('lazy').setup({
     },
   },
 
-  -- "gc" to comment visual regions/lines
-  {
-    'numToStr/Comment.nvim',
-    opts = {
-      padding = true,
-    }
+  { 'nvim-mini/mini.comment',
+    version = false,
+    config = function()
+      require('mini.comment').setup()
+    end
   },
 
   -- Fuzzy Finder (files, lsp, etc)
