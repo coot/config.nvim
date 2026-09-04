@@ -586,7 +586,8 @@ vim.lsp.config.hls = {
     sessionLoading = "multipleComponents",
     plugin = {
       stan   = { globalOn = false },
-      rename = { config = { crossModule = true } }
+      rename = { config = { crossModule = true } },
+      hlint  = { globalOn = false },
     }
   },
   filetypes = { 'haskell', 'lhaskell', 'cabal' },
