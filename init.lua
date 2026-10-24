@@ -580,6 +580,15 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- setup hls without using mason, it's managed by ghcup
 vim.lsp.config.hls = {
+  settings = {
+    haskell = {
+      plugin = {
+        semanticTokens = {
+          globalOn = false,
+        },
+      },
+    },
+  },
   on_attach = lsp_on_attach,
   cmd = {'haskell-language-server-wrapper', '--lsp', '--debug', '--log-file', vim.fn.stdpath('state') .. '/hls.log'},
   init_options = {
