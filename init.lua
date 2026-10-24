@@ -696,6 +696,7 @@ g.SudoEdit_skip_wundo = 1
 -- g.sudo_no_gui = 1
 -- g.sudoAuth = "sudo"
 -- g:sudoAuthArg = "-S"
+g.clipboard = 'wl-copy'
 vim.g = g
 
 -- The line beneath this is called `modeline`. See `:help modeline`
