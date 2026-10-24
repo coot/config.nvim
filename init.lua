@@ -581,7 +581,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 -- setup hls without using mason, it's managed by ghcup
 vim.lsp.config.hls = {
   on_attach = lsp_on_attach,
-  cmd = {'haskell-language-server-wrapper', '--lsp', '--debug', '--log-file', '/tmp/hls.log'},
+  cmd = {'haskell-language-server-wrapper', '--lsp', '--debug', '--log-file', vim.fn.stdpath('state') .. '/hls.log'},
   init_options = {
     sessionLoading = "multipleComponents",
     plugin = {
@@ -595,11 +595,9 @@ vim.lsp.config.hls = {
 vim.lsp.config.rust_analyzer = {
   ['rust-analyzer'] = {},
 }
-vim.lsp.config["GitHub Copilot"] = {}
 
 vim.lsp.enable('hls')
 vim.lsp.enable('rust_analyzer')
-vim.lsp.enable("GitHub Copilot")
 
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
