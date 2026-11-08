@@ -590,7 +590,13 @@ vim.lsp.config.hls = {
     },
   },
   on_attach = lsp_on_attach,
-  cmd = {'haskell-language-server-wrapper', '--lsp', '--debug', '--log-file', vim.fn.stdpath('state') .. '/hls.log'},
+  cmd = function(dispatchers, config)
+    return vim.lsp.rpc.start(
+      {'haskell-language-server-wrapper', '--lsp', '--debug', '--log-file', vim.fn.stdpath('state') .. '/hls.log'},
+      dispatchers,
+      { cwd = config.root_dir }
+    )
+  end,
   init_options = {
     sessionLoading = "multipleComponents",
     plugin = {
